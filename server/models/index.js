@@ -1,5 +1,5 @@
 module.exports = {
-  user: require("./user"),
-  patient: require("./patient"),
-  soapNote: require("./soapNote"),
+  User: require("./user"),
+  Patient: require("./patient"),
+  SoapNote: require("./soapNote"),
 };

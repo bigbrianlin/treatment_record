@@ -1,6 +1,6 @@
 const router = require("express").Router();
-const SoapNote = require("../models").soapNote;
-const Patient = require("../models").patient;
+const { SoapNote } = require("../models");
+const { Patient } = require("../models");
 const soapNoteValidation = require("../validation").soapNoteValidation;
 
 // Middleware to log requests to this router

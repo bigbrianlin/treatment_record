@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const Patient = require("../models").patient;
+const { Patient } = require("../models");
 const patientValidation = require("../validation").patientValidation;
 
 // Middleware to log requests to this router
