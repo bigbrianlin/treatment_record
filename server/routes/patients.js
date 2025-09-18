@@ -23,7 +23,10 @@ router.get("/", async (req, res) => {
   }
 });
 
-//
+// Get a specific patient by ID
+router.get("/:_id", async (req, res) => {
+  let { _id } = req.params;
+});
 
 // Create a new patient
 router.post("/", async (req, res) => {

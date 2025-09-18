@@ -14,24 +14,45 @@ router.use((req, res, next) => {
 //   return res.send("SOAP Note API is working properly");
 // });
 
-// Get all SOAP notes
+// Get my SOAP notes
 router.get("/", async (req, res) => {
   try {
-    let soapNoteFound = await SoapNote.find().sort({ createdAt: -1 });
-    return res.send(soapNoteFound);
+    let soapNotesFound = await SoapNote.find({ therapist: req.user._id })
+      .sort({ createdAt: -1 })
+      .populate("patient")
+      .populate("therapist", "username")
+      .exec();
+    return res.send(soapNotesFound);
   } catch (err) {
     return res.status(500).send("Error fetching SOAP notes: " + err.message);
   }
 });
 
-// Get a specific SOAP note by member ID
-router.get("/user/:_user_id", async (req, res) => {
-  let { _user_id } = req.params;
+// Get all SOAP notes (leader only)
+router.get("/all", async (req, res) => {
+  if (req.user.role !== "leader") return res.status(403).send("Access denied, leader only");
   try {
-    let soapNotesFound = await SoapNote.find({ therapist: _user_id }).sort({ createdAt: -1 }).exec();
+    let soapNotesFound = await SoapNote.find()
+      .sort({ createdAt: -1 })
+      .populate("patient")
+      .populate("therapist", "username")
+      .exec();
     return res.send(soapNotesFound);
   } catch (err) {
     return res.status(500).send("Error fetching SOAP notes: " + err.message);
+  }
+});
+
+// Get a specific SOAP note by its ID
+router.get("/:_id", async (req, res) => {
+  let { _id } = req.params;
+  try {
+    let soapNoteFound = await SoapNote.findById(_id).populate("patient").populate("therapist", "username").exec();
+
+    if (!soapNoteFound) return res.status(404).send("SOAP Note not found");
+    return res.send(soapNoteFound);
+  } catch (err) {
+    return res.status(500).send("Error fetching SOAP note: " + err.message);
   }
 });
 

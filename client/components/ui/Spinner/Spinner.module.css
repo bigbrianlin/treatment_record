@@ -1,0 +1,36 @@
+/* client/components/ui/spinner/Spinner.module.css */
+.spinner {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 8px solid #f3f3f3;
+  border-top-color: #3498db;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.small {
+  width: 16px;
+  height: 16px;
+  border-width: 3px;
+}
+
+.medium {
+  width: 50px;
+  height: 50px;
+  border-width: 8px;
+}
+
+.large {
+  width: 80px;
+  height: 80px;
+  border-width: 10px;
+}

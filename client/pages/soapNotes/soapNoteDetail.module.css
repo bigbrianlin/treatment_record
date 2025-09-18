@@ -1,0 +1,79 @@
+/* client/styles/soap-note-detail.module.css */
+
+.container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.header {
+  border-bottom: 1px solid #eaeaea;
+  padding-bottom: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 2rem;
+  color: #333;
+}
+
+.header p {
+  margin: 0.5rem 0 0;
+  color: #888;
+  font-size: 1rem;
+}
+
+.noteDetails {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  background-color: #f9f9f9;
+  padding: 1rem;
+  border-radius: 6px;
+  margin-bottom: 2rem;
+}
+
+.noteDetails p {
+  margin: 0;
+  color: #555;
+}
+
+.soapSection {
+  margin-bottom: 1.5rem;
+}
+
+.soapSection h2 {
+  font-size: 1.25rem;
+  color: #333;
+  border-bottom: 2px solid #0070f3;
+  padding-bottom: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.soapSection p {
+  white-space: pre-wrap; /* 保留換行和空格 */
+  line-height: 1.6;
+  color: #444;
+}
+
+.backLink {
+  display: inline-block;
+  margin-top: 2rem;
+  color: #0070f3;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.backLink:hover {
+  text-decoration: underline;
+}
+
+.error {
+  color: #ff0000;
+  text-align: center;
+  padding: 2rem;
+}

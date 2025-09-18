@@ -1,14 +1,14 @@
 import "@/styles/globals.css";
-import Layout from "@/components/layout";
+import Layout from "@/components/Layout/Layout";
 import { AuthProvider } from "@/context/authContext";
 
 export default function App({ Component, pageProps }) {
+  const getLayout = Component.getLayout || ((page) => <Layout>{page}</Layout>);
+
   return (
     <AuthProvider>
-      {" "}
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
+      {/* use getLayout */}
+      {getLayout(<Component {...pageProps} />)}
     </AuthProvider>
   );
 }
