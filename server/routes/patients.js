@@ -26,6 +26,14 @@ router.get("/", async (req, res) => {
 // Get a specific patient by ID
 router.get("/:_id", async (req, res) => {
   let { _id } = req.params;
+  try {
+    let patientFound = await Patient.findById(_id);
+
+    if (!patientFound) return res.status(404).send("Patient not found");
+    return res.send(patientFound);
+  } catch (err) {
+    return res.status(500).send("Error fetching patient: " + err.message);
+  }
 });
 
 // Create a new patient

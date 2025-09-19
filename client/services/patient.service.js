@@ -16,6 +16,15 @@ class PatientService {
   getAllPatients() {
     return axios.get(API_URL, getAuthHeader());
   }
+
+  // Get a specific patient by ID
+  getPatientById(patientId) {
+    return axios.get(API_URL + `/${patientId}`, getAuthHeader());
+  }
+
+  createPatient(patientData) {
+    return axios.post(API_URL, patientData, getAuthHeader());
+  }
 }
 
 export default new PatientService();

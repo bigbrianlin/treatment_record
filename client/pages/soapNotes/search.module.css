@@ -1,0 +1,119 @@
+/* client/pages/soapNotes/search.module.css */
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.header p {
+  font-size: 1.1rem;
+  color: #666;
+}
+
+.searchForm {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.searchInput {
+  flex-grow: 1;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.searchButton {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  background-color: #0070f3;
+  color: white;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: background-color 0.2s;
+}
+
+.searchButton:hover {
+  background-color: #005bb5;
+}
+
+.searchButton:disabled {
+  background-color: #a0a0a0;
+  cursor: not-allowed;
+}
+
+.resultsContainer {
+  margin-top: 2rem;
+  min-height: 200px; /* 避免結果出現時頁面跳動 */
+}
+
+.notesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.card {
+  padding: 1.5rem;
+  text-decoration: none;
+  border: 1px solid #eaeaea;
+  border-radius: 10px;
+  transition: color 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
+  background-color: #ffffff;
+  display: block;
+  color: #333;
+}
+
+.card:hover {
+  border-color: #0070f3;
+  transform: translateY(-2px);
+}
+
+.card h3 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  color: #0070f3;
+}
+
+.card p {
+  margin: 0.25rem 0;
+  color: #555;
+}
+
+.prompt,
+.noResults {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #888;
+  padding: 2rem;
+}
+
+.error {
+  color: #ff0000;
+  text-align: center;
+  font-size: 1.1rem;
+}
+
+.fullPageLoader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}

@@ -1,0 +1,109 @@
+/* client/pages/patients/new.module.css */
+
+.container {
+  max-width: 700px;
+  margin: 2rem auto;
+  padding: 2rem;
+}
+
+.form {
+  padding: 2.5rem;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid #eaeaea;
+  padding-bottom: 1rem;
+}
+
+.header h1 {
+  font-size: 1.8rem;
+  color: #333;
+  margin: 0;
+}
+
+.backLink {
+  color: #0070f3;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.backLink:hover {
+  text-decoration: underline;
+}
+
+.inputGroup {
+  margin-bottom: 1.5rem;
+}
+
+.inputGroup label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+  color: #555;
+}
+
+.inputGroup input,
+.inputGroup select,
+.inputGroup textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 1rem;
+  background-color: #fff;
+  box-sizing: border-box; /* 確保 padding 不會影響寬度 */
+}
+
+.inputGroup textarea {
+  resize: vertical; /* 允許使用者垂直調整文字區域大小 */
+}
+
+.button {
+  width: 100%;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 5px;
+  background-color: #0070f3;
+  color: white;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.button:hover {
+  background-color: #005bb5;
+}
+
+.button:disabled {
+  background-color: #a0a0a0;
+  cursor: not-allowed;
+}
+
+.error {
+  color: #ff0000;
+  background-color: #ffebeb;
+  padding: 0.75rem;
+  border-radius: 5px;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.fullPageLoader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}

@@ -43,6 +43,41 @@ router.get("/all", async (req, res) => {
   }
 });
 
+// Get SOAP by patient MRN and name
+router.get("/search", async (req, res) => {
+  // get q from query string
+  const { q } = req.query;
+
+  if (!q || q.trim().length < 1) {
+    return res.send([]);
+  }
+
+  try {
+    const searchRegex = new RegExp(q, "i");
+    // Find patients matching the MRN or name
+    const patientsFound = await Patient.find({
+      $or: [{ name: searchRegex }, { medicalRecordNumber: searchRegex }],
+    }).select("_id");
+
+    // if no patients found, return empty array
+    if (patientsFound.length === 0) {
+      return res.send([]);
+    }
+
+    const patientIds = patientsFound.map((p) => p._id);
+
+    // Find SOAP notes for the matching patients
+    const noetsFound = await SoapNote.find({ patient: { $in: patientIds } })
+      .populate("patient", "name medicalRecordNumber")
+      .populate("therapist", "username")
+      .sort({ treatmentDate: -1 });
+
+    return res.send(noetsFound);
+  } catch (err) {
+    return res.status(500).send("Error searching SOAP notes: " + err.message);
+  }
+});
+
 // Get a specific SOAP note by its ID
 router.get("/:_id", async (req, res) => {
   let { _id } = req.params;

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useAuth } from "@/context/authContext";
 import SoapNoteService from "@/services/soapNote.service";
 import styles from "./index.module.css";
+import Spinner from "@/components/ui/Spinner/Spinner";
 
 // Need to fix the NoteCard component to show more details
 const NoteCard = ({ note }) => (
@@ -42,7 +43,13 @@ export default function SoapNotes() {
     fetchNotes();
   }, [currentUser]);
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) {
+    return (
+      <div className={styles.fullPageLoader}>
+        <Spinner size="large" />
+      </div>
+    );
+  }
   if (error) return <div className={styles.error}>{error}</div>;
 
   return (

@@ -26,6 +26,14 @@ class SoapNoteService {
   getAllSoapNotes() {
     return axios.get(API_URL, getAuthHeader());
   }
+
+  // Search SOAP notes by patient MRN or name
+  searchSoapNotes(query) {
+    return axios.get(API_URL + "/search", {
+      params: { q: query },
+      ...getAuthHeader(),
+    });
+  }
 }
 
 export default new SoapNoteService();
