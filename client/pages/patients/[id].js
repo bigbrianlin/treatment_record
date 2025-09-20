@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import { useAuth } from "@/context/authContext";
 import PatientService from "@/services/patient.service";
 import Spinner from "@/components/ui/Spinner/Spinner";
+import Button from "@/components/ui/Button/Button";
 import styles from "./[id].module.css";
 
 export default function PatientDetail() {
@@ -98,8 +99,12 @@ export default function PatientDetail() {
 
       <div className={styles.actionsSection}>
         {/* add and edit button */}
-        <button className={styles.actionButton}>Add SOAP Note</button>
-        <button className={styles.actionButton}>Edit Patient</button>
+        <Button variant="primary" size="medium" onClick={() => router.push(`/soapNotes/new/${id}`)}>
+          Add SOAP
+        </Button>
+        <Button variant="secondary" size="medium" onClick={() => alert("Edit function is not availible!")}>
+          Edit Patient
+        </Button>{" "}
       </div>
     </div>
   );

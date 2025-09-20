@@ -1,37 +1,30 @@
 import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 import Head from "next/head";
-import Link from "next/link";
 import { useAuth } from "@/context/authContext";
 import SoapNoteService from "@/services/soapNote.service";
 import styles from "./index.module.css";
 import Spinner from "@/components/ui/Spinner/Spinner";
-
-// Need to fix the NoteCard component to show more details
-const NoteCard = ({ note }) => (
-  <Link href={`/soapNotes/${note._id}`} className={styles.card}>
-    <h3>Patient: {note.patient?.name || "N/A"}</h3>
-    <p>MRN: {note.patient?.medicalRecordNumber || "N/A"}</p>
-    <p>Date: {new Date(note.treatmentDate).toLocaleDateString()}</p>
-    <p>Therapist: {note.therapist?.username || "N/A"}</p>
-  </Link>
-);
+import NoteCard from "@/components/notes/NoteCard/NoteCard";
+import Button from "@/components/ui/Button/Button";
 
 export default function SoapNotes() {
-  const { currentUser } = useAuth();
+  const router = useRouter();
+  const { currentUser, isLoading: isAuthLoading } = useAuth();
   const [notes, setNotes] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
 
   useEffect(() => {
-    if (!currentUser) {
-      setIsLoading(false);
+    if (isAuthLoading || !currentUser) {
+      if (!isAuthLoading) setIsLoading(false);
       return;
     }
 
     const fetchNotes = async () => {
       try {
-        const myNotesResponse = await SoapNoteService.getMySoapNotes();
-        setNotes(myNotesResponse.data);
+        const response = await SoapNoteService.getMySoapNotes();
+        setNotes(response.data);
       } catch (err) {
         setError("Failed to fetch SOAP notes. Please try again later.");
         console.error("Failed to fetch SOAP notes:", err);
@@ -41,9 +34,9 @@ export default function SoapNotes() {
     };
 
     fetchNotes();
-  }, [currentUser]);
+  }, [currentUser, isAuthLoading]);
 
-  if (isLoading) {
+  if (isAuthLoading || isLoading) {
     return (
       <div className={styles.fullPageLoader}>
         <Spinner size="large" />
@@ -59,9 +52,10 @@ export default function SoapNotes() {
       </Head>
 
       <div className={styles.header}>
-        <h1>SOAP</h1>
-        {/* add button*/}
-        {/* <Link href="/soapNote/new" className={styles.newButton}>add</Link> */}
+        <h1>My SOAP Notes</h1>
+        <Button variant="primary" onClick={() => router.push("/soapNotes/select-patient")}>
+          Add New Note
+        </Button>
       </div>
       <div className={styles.notesGrid}>
         {notes.length === 0 ? (

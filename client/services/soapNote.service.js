@@ -34,6 +34,10 @@ class SoapNoteService {
       ...getAuthHeader(),
     });
   }
+
+  createSoapNote(data) {
+    return axios.post(API_URL, data, getAuthHeader());
+  }
 }
 
 export default new SoapNoteService();

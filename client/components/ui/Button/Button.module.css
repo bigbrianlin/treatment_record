@@ -1,0 +1,70 @@
+/* client/components/ui/Button/Button.module.css */
+
+/* --- 基礎按鈕樣式 --- */
+.button {
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-family: inherit; /* 繼承父層的字體 */
+  line-height: 1; /* 確保文字垂直置中 */
+}
+
+/* --- 大小 (Size) --- */
+.small {
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+}
+
+.medium {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+}
+
+.large {
+  padding: 1rem 2rem;
+  font-size: 1.125rem;
+}
+
+/* --- 樣式 (Variant) --- */
+/* 主要按鈕 (藍色) */
+.primary {
+  background-color: #0070f3;
+  color: white;
+}
+.primary:hover {
+  background-color: #005bb5;
+}
+
+/* 次要按鈕 (灰色外框) */
+.secondary {
+  background-color: #ffffff;
+  color: #555;
+  border: 1px solid #ccc;
+}
+.secondary:hover {
+  background-color: #f0f0f0;
+  border-color: #aaa;
+}
+
+/* 危險按鈕 (紅色) */
+.danger {
+  background-color: #e53e3e;
+  color: white;
+}
+.danger:hover {
+  background-color: #c53030;
+}
+
+/* --- 狀態 (State) --- */
+.button:disabled {
+  background-color: #a0a0a0;
+  color: #e0e0e0;
+  cursor: not-allowed;
+  border-color: #a0a0a0;
+}
