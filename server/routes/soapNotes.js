@@ -136,4 +136,52 @@ router.post("/", async (req, res) => {
   }
 });
 
+// Edit an existing SOAP note
+router.patch("/:_id", async (req, res) => {
+  // validate the SOAP note data here if needed
+  let { error } = soapNoteValidation(req.body);
+  if (error) return res.status(400).send(error.details[0].message);
+
+  let { _id } = req.params;
+  let updateData = req.body;
+
+  try {
+    const soapNoteFound = await SoapNote.findById(_id);
+    if (!soapNoteFound) return res.status(404).send("SOAP Note not found");
+
+    // Only the owner therapist or a leader can update the SOAP note
+    if (soapNoteFound.therapist.toString() !== req.user._id.toString() && req.user.role !== "leader") {
+      return res.status(403).send("Access denied, not the owner or leader");
+    }
+
+    const updatedSoapNote = await SoapNote.findByIdAndUpdate(_id, updateData, { new: true, runValidators: true })
+      .populate("patient")
+      .populate("therapist", "username")
+      .exec();
+    return res.send({ message: "SOAP Note updated successfully", updatedSoapNote });
+  } catch (err) {
+    return res.status(500).send("Error updating SOAP Note: " + err.message);
+  }
+});
+
+// Delete a SOAP note
+router.delete("/:_id", async (req, res) => {
+  let { _id } = req.params;
+  try {
+    const soapNoteFound = await SoapNote.findById(_id);
+    if (!soapNoteFound) return res.status(404).send("SOAP Note not found");
+
+    // Only the owner therapist or a leader can delete the SOAP note
+    if (soapNoteFound.therapist.toString() !== req.user._id.toString() && req.user.role !== "leader") {
+      return res.status(403).send("Access denied, not the owner or leader");
+    }
+
+    const deletedSoapNote = await SoapNote.findByIdAndDelete(_id);
+    if (!deletedSoapNote) return res.status(404).send("SOAP Note not found");
+    return res.send({ message: "SOAP Note deleted successfully", deletedSoapNote });
+  } catch (err) {
+    return res.status(500).send("Error deleting SOAP Note: " + err.message);
+  }
+});
+
 module.exports = router;

@@ -43,7 +43,19 @@ const patientValidation = (data) => {
   return schema.validate(data);
 };
 
+const updatePatientValidation = (data) => {
+  const schema = Joi.object({
+    name: Joi.string().min(3).max(100),
+    birthDate: Joi.date(),
+    gender: Joi.string().valid("male", "female", "other"),
+    // contactNumber: Joi.string().allow(""),
+    // address: Joi.string().allow(""),
+  });
+  return schema.validate(data);
+};
+
 module.exports.registerValidation = registerValidation;
 module.exports.loginValidation = loginValidation;
 module.exports.soapNoteValidation = soapNoteValidation;
 module.exports.patientValidation = patientValidation;
+module.exports.updatePatientValidation = updatePatientValidation;
