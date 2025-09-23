@@ -2,6 +2,7 @@ const router = require("express").Router();
 const { SoapNote } = require("../models");
 const { Patient } = require("../models");
 const soapNoteValidation = require("../validation").soapNoteValidation;
+const upadateSoapNoteValidation = require("../validation").upadateSoapNoteValidation;
 
 // Middleware to log requests to this router
 router.use((req, res, next) => {
@@ -139,7 +140,7 @@ router.post("/", async (req, res) => {
 // Edit an existing SOAP note
 router.patch("/:_id", async (req, res) => {
   // validate the SOAP note data here if needed
-  let { error } = soapNoteValidation(req.body);
+  let { error } = upadateSoapNoteValidation(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
   let { _id } = req.params;

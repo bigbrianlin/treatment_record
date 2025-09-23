@@ -34,6 +34,20 @@ const soapNoteValidation = (data) => {
   return schema.validate(data);
 };
 
+const upadateSoapNoteValidation = (data) => {
+  const schema = Joi.object({
+    patient: Joi.string().hex().length(24),
+    disabilityCategory: Joi.string().max(100),
+    treatmentDate: Joi.date(),
+    sessionCount: Joi.number().min(1),
+    subjective: Joi.string().allow("").optional(),
+    objective: Joi.string().allow("").optional(),
+    assessment: Joi.string().allow("").optional(),
+    plan: Joi.string().allow("").optional(),
+  });
+  return schema.validate(data);
+};
+
 const patientValidation = (data) => {
   const schema = Joi.object({
     name: Joi.string().max(100).required(),
@@ -57,5 +71,6 @@ const updatePatientValidation = (data) => {
 module.exports.registerValidation = registerValidation;
 module.exports.loginValidation = loginValidation;
 module.exports.soapNoteValidation = soapNoteValidation;
+module.exports.upadateSoapNoteValidation = upadateSoapNoteValidation;
 module.exports.patientValidation = patientValidation;
 module.exports.updatePatientValidation = updatePatientValidation;

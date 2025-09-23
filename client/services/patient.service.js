@@ -25,6 +25,14 @@ class PatientService {
   createPatient(patientData) {
     return axios.post(API_URL, patientData, getAuthHeader());
   }
+
+  updatePatient(patientId, updatedData) {
+    return axios.patch(API_URL + `/${patientId}`, updatedData, getAuthHeader());
+  }
+
+  deletePatient(patientId) {
+    return axios.delete(API_URL + `/${patientId}`, getAuthHeader());
+  }
 }
 
 export default new PatientService();

@@ -80,3 +80,10 @@
 .error {
   color: #ff0000;
 }
+
+.fullPageLoader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 70vh;
+}

@@ -3,6 +3,8 @@ import Head from "next/head";
 import Link from "next/link";
 import { useAuth } from "@/context/authContext";
 import PatientService from "@/services/patient.service";
+import Spinner from "@/components/ui/Spinner/Spinner";
+import Button from "@/components/ui/Button/Button";
 import styles from "./index.module.css";
 
 const PatientCard = ({ patient }) => (
@@ -43,7 +45,14 @@ export default function Patients() {
     fetchPatients();
   }, [currentUser]);
 
-  if (isLoading) return <div className={styles.loading}>Loading patients...</div>;
+  if (isLoading) {
+    return (
+      <div className={styles.fullPageLoader}>
+        <Spinner size="large" />
+      </div>
+    );
+  }
+
   if (error) return <div className={styles.error}>{error}</div>;
 
   return (

@@ -16,6 +16,7 @@ export default function PatientDetail() {
   const [patient, setPatient] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
+  const [isDeleting, setIsDeleting] = useState(false);
 
   useEffect(() => {
     if (!isAuthloading && !currentUser) {
@@ -41,6 +42,20 @@ export default function PatientDetail() {
       fetchPatient();
     }
   }, [id, currentUser]);
+
+  const handleDelete = async () => {
+    if (window.confirm(`Are you sure you want to delete ${patient.name}? This action cannot be undone.`)) {
+      setIsDeleting(true);
+      try {
+        await PatientService.deletePatient(id);
+        alert("Patient deleted successfully.");
+        router.push("/patients");
+      } catch (err) {
+        setError("Failed to delete patient.");
+        setIsDeleting(false);
+      }
+    }
+  };
 
   if (isAuthloading || isLoading || !currentUser) {
     return (
@@ -98,13 +113,13 @@ export default function PatientDetail() {
       </div>
 
       <div className={styles.actionsSection}>
-        {/* add and edit button */}
-        <Button variant="primary" size="medium" onClick={() => router.push(`/soapNotes/new/${id}`)}>
-          Add SOAP
+        <Link href={`/patients/edit/${id}`} passHref>
+          <Button variant="secondary">Edit Patient</Button>
+        </Link>
+        <Button variant="danger" onClick={handleDelete} disabled={isDeleting}>
+          {isDeleting ? <Spinner size="small" /> : null}
+          {isDeleting ? "Deleting..." : "Delete Patient"}
         </Button>
-        <Button variant="secondary" size="medium" onClick={() => alert("Edit function is not availible!")}>
-          Edit Patient
-        </Button>{" "}
       </div>
     </div>
   );
