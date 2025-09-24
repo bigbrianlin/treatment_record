@@ -38,6 +38,14 @@ class SoapNoteService {
   createSoapNote(data) {
     return axios.post(API_URL, data, getAuthHeader());
   }
+
+  updateSoapNote(noteId, data) {
+    return axios.patch(API_URL + `/${noteId}`, data, getAuthHeader());
+  }
+
+  deleteSoapNote(noteId) {
+    return axios.delete(API_URL + `/${noteId}`, getAuthHeader());
+  }
 }
 
 export default new SoapNoteService();

@@ -2,7 +2,8 @@ import Head from "next/head";
 import Link from "next/link";
 import React from "react";
 import { useAuth } from "@/context/authContext";
-import styles from "./layout.module.css";
+import Footer from "./Footer";
+import styles from "./Layout.module.css";
 
 const Navbar = () => {
   const { currentUser, logout } = useAuth();
@@ -12,35 +13,16 @@ const Navbar = () => {
         Treatment Record System
       </Link>
       <nav className={styles.nav}>
-        {currentUser ? (
-          <>
-            <span className={styles.userInfo}>
-              Hi, {currentUser.username} ({currentUser.role === "leader" ? "Leader" : "Member"})
-            </span>
-            <button onClick={logout} className={styles.button}>
-              Logout
-            </button>
-          </>
-        ) : (
-          <>
-            <Link href="/login" className={styles.navLink}>
-              Login
-            </Link>
-            <Link href="/register" className={styles.navLink}>
-              Register
-            </Link>
-          </>
-        )}
+        <span className={styles.userInfo}>
+          Hi, {currentUser.username} ({currentUser.role === "leader" ? "Leader" : "Member"})
+        </span>
+        <button onClick={logout} className={styles.button}>
+          Logout
+        </button>
       </nav>
     </header>
   );
 };
-
-const Footer = () => (
-  <footer className={styles.footer}>
-    <p>&copy; {new Date().getFullYear()} Treatment Record System. All Rights Reserved.</p>
-  </footer>
-);
 
 export default function Layout({ children }) {
   return (

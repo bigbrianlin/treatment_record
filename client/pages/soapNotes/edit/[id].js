@@ -3,47 +3,39 @@ import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useAuth } from "@/context/authContext";
-import PatientService from "@/services/patient.service";
 import SoapNoteService from "@/services/soapNote.service";
 import Spinner from "@/components/ui/Spinner/Spinner";
-import styles from "./[id].module.css";
+import Button from "@/components/ui/Button/Button";
+import styles from "../new/[id].module.css";
 
-export default function NewSoapNote() {
+export default function EditSoapNote() {
   const router = useRouter();
-  const { id } = router.query; // get the patient ID from the URL
+  const { id } = router.query;
   const { currentUser, isLoading: isAuthLoading } = useAuth();
 
-  const [patient, setPatient] = useState(null);
-  const [formData, setFormData] = useState({
-    subjective: "",
-    objective: "",
-    assessment: "",
-    plan: "",
-    disabilityCategory: "",
-    sessionCount: 1,
-  });
-  const [isLoading, setIsLoading] = useState(false);
+  const [formData, setFormData] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
-    const fetchPatient = async () => {
-      setIsLoading(true);
-      try {
-        const response = await PatientService.getPatientById(id);
-        setPatient(response.data);
-      } catch (err) {
-        setError("Failed to fetch patient data. You may not have permission or the patient does not exist.");
-        console.error(err);
-      } finally {
-        setIsLoading(false);
-      }
-    };
     if (id && currentUser) {
-      fetchPatient();
-    } else if (!isAuthLoading) {
-      setIsLoading(false);
+      const fetchNote = async () => {
+        setIsLoading(true);
+        try {
+          const response = await SoapNoteService.getSoapNoteById(id);
+          const note = response.data;
+          setFormData(note);
+        } catch (err) {
+          setError("Failed to fetch SOAP note data. You may not have permission or the note does not exist.");
+          console.error(err);
+        } finally {
+          setIsLoading(false);
+        }
+      };
+      fetchNote();
     }
-  }, [id, currentUser, isAuthLoading]);
+  }, [id, currentUser]);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -51,27 +43,29 @@ export default function NewSoapNote() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsLoading(true);
+    setIsSubmitting(true);
     setError("");
 
-    const noteData = {
-      ...formData,
-      patient: id,
-      treatmentDate: new Date(),
+    const updateData = {
+      disabilityCategory: formData.disabilityCategory,
+      sessionCount: formData.sessionCount,
+      subjective: formData.subjective,
+      objective: formData.objective,
+      assessment: formData.assessment,
+      plan: formData.plan,
     };
 
     try {
-      const response = await SoapNoteService.createSoapNote(noteData);
-      alert("SOAP Note created successfully!");
-
-      router.push(`/soapNotes/${response.data.populatedSoapNote._id}`);
+      await SoapNoteService.updateSoapNote(id, updateData);
+      alert("SOAP note updated successfully.");
+      router.push(`/soapNotes/${id}`);
     } catch (err) {
-      setError(err.response?.data || "Failed to create SOAP Note.");
-      setIsLoading(false);
+      setError("Failed to update SOAP note. Please try again.");
+      setIsSubmitting(false);
     }
   };
 
-  if (isAuthLoading || isLoading) {
+  if (isAuthLoading || !formData) {
     return (
       <div className={styles.fullPageLoader}>
         <Spinner size="large" />
@@ -80,27 +74,20 @@ export default function NewSoapNote() {
   }
 
   if (error) return <div className={styles.error}>{error}</div>;
-  if (!patient) return <div className={styles.error}>Patient not found.</div>;
 
   return (
     <div className={styles.container}>
       <Head>
-        <title>New SOAP Note for {patient.name}</title>
+        <title>Edit SOAP Note for {formData.patient.name}</title>
       </Head>
       <form onSubmit={handleSubmit} className={styles.form}>
         <div className={styles.header}>
-          <div>
-            <h1>New SOAP Note</h1>
-            <p className={styles.patientInfo}>
-              For Patient: <strong>{patient.name}</strong> (MRN: {patient.medicalRecordNumber})
-            </p>
-          </div>
-          <Link href={`/patients/${id}`} className={styles.backLink}>
-            Back to Patient
-          </Link>
+          <h1>Edit SOAP Note</h1>
+          <p className={styles.patientInfo}>
+            For Patient: <strong>{formData.patient.name}</strong> (MRN: {formData.patient.medicalRecordNumber})
+          </p>
         </div>
 
-        {/* SOAP 表單欄位 */}
         <div className={styles.inputGroup}>
           <label htmlFor="disabilityCategory">Disability Category</label>
           <input
@@ -112,6 +99,7 @@ export default function NewSoapNote() {
             required
           />
         </div>
+
         <div className={styles.inputGroup}>
           <label htmlFor="sessionCount">Session Count</label>
           <input
@@ -162,14 +150,14 @@ export default function NewSoapNote() {
           <textarea id="plan" name="plan" rows="4" value={formData.plan} onChange={handleChange} required></textarea>
         </div>
 
-        <button type="submit" disabled={isLoading} className={styles.button}>
-          {isLoading ? (
+        <button type="submit" disabled={isSubmitting} className={styles.button}>
+          {isSubmitting ? (
             <>
               <Spinner size="small" />
               <span>Saving...</span>
             </>
           ) : (
-            "Create SOAP"
+            "Save Changes"
           )}
         </button>
       </form>

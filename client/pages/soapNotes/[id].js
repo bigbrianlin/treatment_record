@@ -4,7 +4,9 @@ import Head from "next/head";
 import Link from "next/link";
 import { useAuth } from "@/context/authContext";
 import SoapNoteService from "@/services/soapNote.service";
-import styles from "./soapNoteDetail.module.css";
+import Spinner from "@/components/ui/Spinner/Spinner";
+import Button from "@/components/ui/Button/Button";
+import styles from "./[id].module.css";
 
 export default function SoapNoteDetail() {
   const router = useRouter();
@@ -14,6 +16,7 @@ export default function SoapNoteDetail() {
   const [note, setNote] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
+  const [isDeleting, setIsDeleting] = useState(false);
 
   useEffect(() => {
     // make sure id and currentUser are available
@@ -33,9 +36,32 @@ export default function SoapNoteDetail() {
     }
   }, [id, currentUser]);
 
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div style={styles.error}>{error}</div>;
+  const handleDelete = async () => {
+    if (window.confirm("Are you sure you want to delete this SOAP note?")) {
+      setIsDeleting(true);
+      try {
+        await SoapNoteService.deleteSoapNote(id);
+        alert("SOAP note deleted successfully.");
+        router.push("/soapNotes");
+      } catch (err) {
+        setError("Failed to delete SOAP note. Please try again.");
+        console.error("Failed to delete SOAP note:", err);
+        setIsDeleting(false);
+      }
+    }
+  };
+
+  if (isLoading) {
+    return (
+      <div className={styles.fullPageLoader}>
+        <Spinner size="large" />
+      </div>
+    );
+  }
+  if (error) return <div className={styles.error}>{error}</div>;
   if (!note) return <div>No SOAP note found.</div>;
+
+  const isOwner = currentUser && note && (currentUser._id === note.therapist._id || currentUser.role === "leader");
 
   return (
     <div className={styles.container}>
@@ -44,8 +70,8 @@ export default function SoapNoteDetail() {
       </Head>
 
       <div className={styles.header}>
-        <h1>Patient: {note.patient.name}</h1>
-        <p>Medical Record Number: {note.patient.medicalRecordNumber}</p>
+        <h1>Patient: {note.patient?.name}</h1>
+        <p>Medical Record Number: {note.patient?.medicalRecordNumber}</p>
       </div>
 
       <div className={styles.noteDetails}>
@@ -79,6 +105,18 @@ export default function SoapNoteDetail() {
         <h2>Plan</h2>
         <p>{note.plan}</p>
       </div>
+
+      {isOwner && (
+        <div className={styles.actionsSection}>
+          <Link href={`/soapNotes/edit/${id}`} passHref>
+            <Button variant="secondary">Edit Note</Button>
+          </Link>
+          <Button variant="danger" onClick={handleDelete} disabled={isDeleting}>
+            {isDeleting ? <Spinner size="small" /> : null}
+            {isDeleting ? "Deleting..." : "Delete Note"}
+          </Button>
+        </div>
+      )}
 
       <Link href="/soapNotes" className={styles.backLink}>
         &larr; Back to List

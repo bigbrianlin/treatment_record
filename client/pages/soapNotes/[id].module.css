@@ -77,3 +77,18 @@
   text-align: center;
   padding: 2rem;
 }
+
+.fullPageLoader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 70vh;
+}
+
+.actionsSection {
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid #eaeaea;
+  display: flex;
+  gap: 1rem;
+}
