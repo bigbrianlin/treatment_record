@@ -1,0 +1,29 @@
+/* client/components/ui/PageState/PageState.module.css */
+
+.fullPageLoader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 70vh;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.error {
+  text-align: center;
+  color: #ff0000;
+  background-color: #ffebeb;
+  padding: 2rem;
+  border-radius: 8px;
+}
+
+.noData {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #888;
+  padding: 3rem;
+}

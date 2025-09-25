@@ -1,16 +1,13 @@
-import { useState, useEffect, use } from "react";
+import { useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useAuth } from "@/context/authContext";
 import PatientService from "@/services/patient.service";
 import Spinner from "@/components/ui/Spinner/Spinner";
 import styles from "./new.module.css";
 
 export default function NewPatient() {
   const router = useRouter();
-  const { currentUser, isLoading: isAuthLoading } = useAuth();
-
   const [formData, setFormData] = useState({
     name: "",
     birthDate: "",
@@ -19,14 +16,7 @@ export default function NewPatient() {
 
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
-
   const { name, birthDate, gender } = formData;
-
-  useEffect(() => {
-    if (!isAuthLoading && !currentUser) {
-      router.push("/login");
-    }
-  }, [currentUser, isAuthLoading, router]);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -46,14 +36,6 @@ export default function NewPatient() {
       setIsLoading(false);
     }
   };
-
-  if (isAuthLoading || !currentUser) {
-    return (
-      <div className={styles.fullPageLoader}>
-        <Spinner size="large" />
-      </div>
-    );
-  }
 
   return (
     <div className={styles.container}>
@@ -120,3 +102,5 @@ export default function NewPatient() {
     </div>
   );
 }
+
+NewPatient.auth = true;

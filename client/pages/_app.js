@@ -1,7 +1,7 @@
 import "@/styles/globals.css";
 import Layout from "@/components/Layout/Layout";
 import { AuthProvider } from "@/context/authContext";
-import AuthGuard from "@/auth/AuthGuard";
+import AuthGuard from "@/components/auth/AuthGuard";
 
 export default function App({ Component, pageProps }) {
   const isAuthRequired = Component.auth || false;

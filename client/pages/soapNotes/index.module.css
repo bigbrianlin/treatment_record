@@ -33,16 +33,3 @@
   padding: 3rem;
   grid-column: 1 / -1; /* 讓此訊息佔滿整個網格寬度 */
 }
-
-.fullPageLoader {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-}
-
-.error {
-  text-align: center;
-  color: #ff0000;
-  padding: 2rem;
-}

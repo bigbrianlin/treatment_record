@@ -1,8 +1,5 @@
 import Link from "next/link";
-import { useEffect } from "react";
-import { useRouter } from "next/router";
 import { useAuth } from "@/context/authContext";
-import Spinner from "@/components/ui/Spinner/Spinner";
 import styles from "./index.module.css";
 
 const FeatureCard = ({ href, title, description }) => (
@@ -13,28 +10,7 @@ const FeatureCard = ({ href, title, description }) => (
 );
 
 export default function Home() {
-  const router = useRouter();
-  const { currentUser, isLoading } = useAuth();
-
-  useEffect(() => {
-    // Wait until loading finishes
-    if (!isLoading) {
-      return;
-    }
-    // If not logged in, redirect to login page
-    if (!currentUser) {
-      router.push("/login");
-    }
-  }, [currentUser, isLoading, router]);
-
-  // Show a loading spinner while checking auth status
-  if (isLoading || !currentUser) {
-    return (
-      <div className={styles.fullPageLoader}>
-        <Spinner size="large" />
-      </div>
-    );
-  }
+  const { currentUser } = useAuth();
 
   // only logged in users can reach this point
   return (
@@ -65,3 +41,5 @@ export default function Home() {
     </div>
   );
 }
+
+Home.auth = true;

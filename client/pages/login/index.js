@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useAuth } from "../../context/authContext";
+import { useAuth } from "@/context/authContext";
 import Spinner from "@/components/ui/Spinner/Spinner";
 import styles from "./index.module.css";
 

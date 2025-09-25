@@ -1,29 +1,17 @@
 import { useState, useEffect } from "react";
-import { useRouter } from "next/router";
 import Head from "next/head";
-import Link from "next/link";
-import { useAuth } from "@/context/authContext";
 import SoapNoteService from "@/services/soapNote.service";
 import Spinner from "@/components/ui/Spinner/Spinner";
 import NoteCard from "@/components/notes/NoteCard/NoteCard";
 import styles from "./search.module.css";
 
 export default function Search() {
-  const { currentUser, isLoading } = useAuth();
-  const router = useRouter();
-
   // State for search functionality
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [isSearching, setIsSearching] = useState(false);
   const [error, setError] = useState("");
   const [hasSearched, setHasSearched] = useState(false);
-
-  useEffect(() => {
-    if (!isLoading && !currentUser) {
-      router.push("/login");
-    }
-  }, [currentUser, isLoading, router]);
 
   const handleInputChange = (e) => {
     setSearchTerm(e.target.value);
@@ -53,12 +41,8 @@ export default function Search() {
     }
   };
 
-  if (isLoading || !currentUser) {
-    return (
-      <div className={styles.fullPageLoader}>
-        <Spinner size="large" />
-      </div>
-    );
+  if (error) {
+    return <div className={styles.error}>{error}</div>;
   }
 
   return (
@@ -85,8 +69,6 @@ export default function Search() {
         </button>
       </form>
 
-      {error && <p className={styles.error}>{error}</p>}
-
       <div className={styles.resultsContainer}>
         {hasSearched ? (
           searchResults.length > 0 ? (
@@ -105,3 +87,5 @@ export default function Search() {
     </div>
   );
 }
+
+Search.auth = true;
