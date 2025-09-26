@@ -69,14 +69,14 @@ export default function NewSoapNote() {
     <PageState isLoading={isLoading} error={error} data={patient} noDataMsg="No patient data found.">
       <div className={styles.container}>
         <Head>
-          <title>New SOAP Note for {patient.name}</title>
+          <title>New SOAP Note for {patient?.name}</title>
         </Head>
         <form onSubmit={handleSubmit} className={styles.form}>
           <div className={styles.header}>
             <div>
               <h1>New SOAP Note</h1>
               <p className={styles.patientInfo}>
-                For Patient: <strong>{patient.name}</strong> (MRN: {patient.medicalRecordNumber})
+                For Patient: <strong>{patient?.name}</strong> (MRN: {patient?.medicalRecordNumber})
               </p>
             </div>
             <Link href={`/patients/${id}`} className={styles.backLink}>

@@ -67,13 +67,13 @@ export default function EditSoapNote() {
     <PageState isLoading={isLoading} error={error} data={formData} noDataMsg="No SOAP note data found.">
       <div className={styles.container}>
         <Head>
-          <title>Edit SOAP Note for {formData.patient.name}</title>
+          <title>Edit SOAP Note for {formData?.patient.name}</title>
         </Head>
         <form onSubmit={handleSubmit} className={styles.form}>
           <div className={styles.header}>
             <h1>Edit SOAP Note</h1>
             <p className={styles.patientInfo}>
-              For Patient: <strong>{formData.patient.name}</strong> (MRN: {formData.patient.medicalRecordNumber})
+              For Patient: <strong>{formData?.patient.name}</strong> (MRN: {formData?.patient.medicalRecordNumber})
             </p>
           </div>
 
@@ -83,7 +83,7 @@ export default function EditSoapNote() {
               id="disabilityCategory"
               name="disabilityCategory"
               type="text"
-              value={formData.disabilityCategory}
+              value={formData?.disabilityCategory}
               onChange={handleChange}
               required
             />
@@ -96,7 +96,7 @@ export default function EditSoapNote() {
               name="sessionCount"
               type="number"
               min="1"
-              value={formData.sessionCount}
+              value={formData?.sessionCount}
               onChange={handleChange}
               required
             />
@@ -107,7 +107,7 @@ export default function EditSoapNote() {
               id="subjective"
               name="subjective"
               rows="4"
-              value={formData.subjective}
+              value={formData?.subjective}
               onChange={handleChange}
               required
             ></textarea>
@@ -118,7 +118,7 @@ export default function EditSoapNote() {
               id="objective"
               name="objective"
               rows="4"
-              value={formData.objective}
+              value={formData?.objective}
               onChange={handleChange}
               required
             ></textarea>
@@ -129,14 +129,14 @@ export default function EditSoapNote() {
               id="assessment"
               name="assessment"
               rows="4"
-              value={formData.assessment}
+              value={formData?.assessment}
               onChange={handleChange}
               required
             ></textarea>
           </div>
           <div className={styles.inputGroup}>
             <label htmlFor="plan">Plan (P)</label>
-            <textarea id="plan" name="plan" rows="4" value={formData.plan} onChange={handleChange} required></textarea>
+            <textarea id="plan" name="plan" rows="4" value={formData?.plan} onChange={handleChange} required></textarea>
           </div>
 
           <button type="submit" disabled={isSubmitting} className={styles.button}>

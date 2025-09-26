@@ -58,44 +58,44 @@ export default function SoapNoteDetail() {
     <PageState isLoading={isLoading} error={error} data={note} noDataMsg="No SOAP note found.">
       <div className={styles.container}>
         <Head>
-          <title>Note Details: {note.patient?.name}</title>
+          <title>Note Details: {note?.patient?.name}</title>
         </Head>
 
         <div className={styles.header}>
-          <h1>Patient: {note.patient?.name}</h1>
-          <p>Medical Record Number: {note.patient?.medicalRecordNumber}</p>
+          <h1>Patient: {note?.patient?.name}</h1>
+          <p>Medical Record Number: {note?.patient?.medicalRecordNumber}</p>
         </div>
 
         <div className={styles.noteDetails}>
           <p>
-            <strong>Treatment Date:</strong> {new Date(note.treatmentDate).toLocaleDateString()}
+            <strong>Treatment Date:</strong> {new Date(note?.treatmentDate).toLocaleDateString()}
           </p>
           <p>
-            <strong>Session Count:</strong> Session #{note.sessionCount}
+            <strong>Session Count:</strong> Session #{note?.sessionCount}
           </p>
           <p>
-            <strong>Diagnosis:</strong> {note.disabilityCategory}
+            <strong>Diagnosis:</strong> {note?.disabilityCategory}
           </p>
           <p>
-            <strong>SLP:</strong> {note.therapist.username}
+            <strong>SLP:</strong> {note?.therapist.username}
           </p>
         </div>
 
         <div className={styles.soapSection}>
           <h2>Subjective</h2>
-          <p>{note.subjective}</p>
+          <p>{note?.subjective}</p>
         </div>
         <div className={styles.soapSection}>
           <h2>Objective</h2>
-          <p>{note.objective}</p>
+          <p>{note?.objective}</p>
         </div>
         <div className={styles.soapSection}>
           <h2>Assessment</h2>
-          <p>{note.assessment}</p>
+          <p>{note?.assessment}</p>
         </div>
         <div className={styles.soapSection}>
           <h2>Plan</h2>
-          <p>{note.plan}</p>
+          <p>{note?.plan}</p>
         </div>
 
         {isOwner && (
