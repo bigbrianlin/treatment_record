@@ -3,7 +3,7 @@
   max-width: 900px;
   margin: 2rem auto;
   padding: 2rem;
-  background-color: #f9f9f9;
+  background-color: var(--background-color);
 }
 
 .header {
@@ -80,32 +80,4 @@
   border-top: 1px solid #eaeaea;
   display: flex;
   gap: 1rem;
-}
-
-.actionButton {
-  padding: 0.75rem 1.5rem;
-  border: none;
-  border-radius: 5px;
-  background-color: #0070f3;
-  color: white;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background-color 0.2s;
-}
-
-.actionButton:hover {
-  background-color: #005bb5;
-}
-
-.fullPageLoader {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 70vh;
-}
-
-.error {
-  text-align: center;
-  color: #ff0000;
-  padding: 2rem;
 }

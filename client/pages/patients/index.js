@@ -4,18 +4,8 @@ import Link from "next/link";
 import PatientService from "@/services/patient.service";
 import styles from "./index.module.css";
 import PageState from "@/components/ui/PageState/PageState";
-
-const PatientCard = ({ patient }) => (
-  <Link href={`/patients/${patient._id}`} className={styles.card}>
-    <h3>{patient.name}</h3>
-    <p>
-      <strong>MRN:</strong> {patient.medicalRecordNumber}
-    </p>
-    <p>
-      <strong>DOB:</strong> {new Date(patient.birthDate).toLocaleDateString()}
-    </p>
-  </Link>
-);
+import PatientCard from "@/components/patients/PatientCard/PatientCard";
+import Button from "@/components/ui/Button/Button";
 
 export default function Patients() {
   const [patients, setPatients] = useState([]);
@@ -47,8 +37,8 @@ export default function Patients() {
 
         <div className={styles.header}>
           <h1>Patients</h1>
-          <Link href="/patients/new" className={styles.newButton}>
-            Add Patient
+          <Link href="patients/new" passHref>
+            <Button variant="primary">Add New Patient</Button>
           </Link>
         </div>
         {patients.length > 0 ? (

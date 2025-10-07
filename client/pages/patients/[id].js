@@ -62,6 +62,7 @@ export default function PatientDetail() {
             <h1 className={styles.patientName}>{patient?.name}</h1>
             <p className={styles.mrn}>MRN: {patient?.medicalRecordNumber}</p>
           </div>
+
           <Link href="/patients" className={styles.backLink}>
             &larr; Back to Patient List
           </Link>
@@ -98,6 +99,9 @@ export default function PatientDetail() {
             {isDeleting ? <Spinner size="small" /> : null}
             {isDeleting ? "Deleting..." : "Delete Patient"}
           </Button>
+          <Link href={`/soapNotes/new/${id}`} passHref>
+            <Button variant="primary">Add SOAP Note</Button>
+          </Link>
         </div>
       </div>
     </PageState>

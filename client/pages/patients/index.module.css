@@ -1,9 +1,8 @@
 /* client/pages/patients/index.module.css */
 
 .container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 2rem;
+  padding: 2rem 2rem;
+  margin: 0 2rem;
 }
 
 .header {
@@ -16,23 +15,7 @@
 }
 
 .header h1 {
-  margin: 0;
-  font-size: 2.5rem;
-  color: #333;
-}
-
-.newButton {
-  padding: 0.75rem 1.5rem;
-  background-color: #0070f3;
-  color: white;
-  text-decoration: none;
-  border-radius: 6px;
-  font-weight: bold;
-  transition: background-color 0.2s;
-}
-
-.newButton:hover {
-  background-color: #005bb5;
+  font-size: var(--font-size-xxl);
 }
 
 .patientsGrid {
@@ -41,49 +24,9 @@
   gap: 1.5rem;
 }
 
-.card {
-  background-color: #ffffff;
-  border-radius: 8px;
-  padding: 1.5rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-  text-decoration: none;
-  color: inherit;
-  display: block; /* Ensures the whole card is a clickable area */
-}
-
-.card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
-}
-
-.card h3 {
-  margin: 0 0 0.5rem 0;
-  font-size: 1.25rem;
-  color: #0070f3;
-}
-
-.card p {
-  margin: 0.25rem 0;
-  color: #555;
-}
-
-.loading,
-.error,
 .noPatients {
   text-align: center;
   padding: 4rem 0;
   font-size: 1.2rem;
   color: #888;
-}
-
-.error {
-  color: #ff0000;
-}
-
-.fullPageLoader {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 70vh;
 }

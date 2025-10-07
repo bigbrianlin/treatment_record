@@ -70,7 +70,7 @@ export default function EditPatient() {
           <div className={styles.header}>
             <h1>Edit Patient</h1>
             <Link href={`/patients/${id}`} className={styles.backLink}>
-              &larr; Back to Patient Details
+              &larr; Back
             </Link>
           </div>
 

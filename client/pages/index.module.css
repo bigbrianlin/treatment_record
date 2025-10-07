@@ -1,10 +1,8 @@
 /* client/pages/index.module.css */
 
 .container {
-  /* min-height: 80vh; */
   padding: 2rem 2rem;
-  display: flex;
-  flex-direction: column;
+  margin: 0 2rem;
   justify-content: center;
   align-items: center;
 }
@@ -17,9 +15,8 @@
 }
 
 .grid {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
   margin-top: 2rem;
 }

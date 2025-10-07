@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
+import Link from "next/link";
 import SoapNoteService from "@/services/soapNote.service";
 import styles from "./index.module.css";
 import NoteCard from "@/components/notes/NoteCard/NoteCard";
@@ -31,16 +32,17 @@ export default function SoapNotes() {
 
   return (
     <PageState isLoading={isLoading} error={error}>
-      <div>
+      <div className={styles.container}>
         <Head>
           <title>My SOAP</title>
+          <meta name="description" content="List of my SOAP." />
         </Head>
 
         <div className={styles.header}>
           <h1>My SOAP Notes</h1>
-          <Button variant="primary" onClick={() => router.push("/soapNotes/select-patient")}>
-            Add New Note
-          </Button>
+          <Link href="soapNotes/select-patient" passHref>
+            <Button variant="primary">Add New Note</Button>
+          </Link>
         </div>
 
         <div className={styles.notesGrid}>

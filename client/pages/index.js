@@ -1,10 +1,7 @@
-import { useAuth } from "@/context/authContext";
 import FeatureCard from "@/components/dashboard/FeatureCard/FeatureCard";
 import styles from "./index.module.css";
 
 export default function Home() {
-  const { currentUser } = useAuth();
-
   // only logged in users can reach this point
   return (
     <div className={styles.container}>

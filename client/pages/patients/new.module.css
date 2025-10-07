@@ -61,6 +61,25 @@
   box-sizing: border-box; /* 確保 padding 不會影響寬度 */
 }
 
+.inputGroup select {
+  /* remove default arrow in select */
+  -webkit-appearance: none; /* for Safari/Chrome */
+  -moz-appearance: none; /* for Firefox */
+  appearance: none;
+
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+  background-position: right 0.75rem center; /* arrow position */
+  background-repeat: no-repeat;
+  background-size: 1.25em; /* arrow size */
+  padding-right: 2.5rem; /* make space for the arrow */
+}
+
+/* Fix for Firefox to show the arrow */
+.inputGroup select:-moz-focusring {
+  color: transparent;
+  text-shadow: 0 0 0 #000;
+}
+
 .inputGroup textarea {
   resize: vertical; /* 允許使用者垂直調整文字區域大小 */
 }
