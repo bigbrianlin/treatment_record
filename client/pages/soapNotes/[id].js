@@ -83,19 +83,19 @@ export default function SoapNoteDetail() {
 
         <div className={styles.soapSection}>
           <h2>Subjective</h2>
-          <p>{note?.subjective}</p>
+          <div dangerouslySetInnerHTML={{ __html: note?.subjective }} />
         </div>
         <div className={styles.soapSection}>
           <h2>Objective</h2>
-          <p>{note?.objective}</p>
+          <div dangerouslySetInnerHTML={{ __html: note?.objective }} />
         </div>
         <div className={styles.soapSection}>
           <h2>Assessment</h2>
-          <p>{note?.assessment}</p>
+          <div dangerouslySetInnerHTML={{ __html: note?.assessment }} />
         </div>
         <div className={styles.soapSection}>
           <h2>Plan</h2>
-          <p>{note?.plan}</p>
+          <div dangerouslySetInnerHTML={{ __html: note?.plan }} />
         </div>
 
         {isOwner && (

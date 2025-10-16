@@ -1,0 +1,40 @@
+/* client/components/editor/TiptapEditor.module.css */
+
+.editorContainer {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.toolbar {
+  background-color: #f5f5f5;
+  padding: 0.5rem;
+  border-bottom: 1px solid #ccc;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.toolbar button.isActive {
+  background-color: #e0e0e0;
+  border-color: #0070f3;
+}
+
+.editorContent {
+  padding: 1rem;
+  min-height: 250px;
+}
+
+/* This is Editor specific styling */
+.editorContent .ProseMirror {
+  outline: none;
+}
+
+.editorContent .ProseMirror p {
+  margin: 0 0 1rem;
+}
+
+.editorContent .ProseMirror ul,
+.editorContent .ProseMirror ol {
+  padding-left: 2rem;
+}

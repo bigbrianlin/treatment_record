@@ -8,6 +8,22 @@ import Spinner from "@/components/ui/Spinner/Spinner";
 import styles from "./[id].module.css";
 import PageState from "@/components/ui/PageState/PageState";
 
+import Modal from "@/components/ui/Modal/Modal";
+import TiptapEditor from "@/components/editor/TiptapEditor";
+import Button from "@/components/ui/Button/Button";
+
+// for displaying rich text content
+const DisplayBox = ({ title, content, onClick }) => (
+  <div className={styles.inputGroup}>
+    <label>{title}</label>
+    <div
+      className={styles.displayBox}
+      onClick={onClick}
+      dangerouslySetInnerHTML={{ __html: content || "<p>Click to edit...</p>" }}
+    />
+  </div>
+);
+
 export default function NewSoapNote() {
   const router = useRouter();
   const { id } = router.query; // get the patient ID from the URL
@@ -23,6 +39,9 @@ export default function NewSoapNote() {
   });
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
+
+  const [editingField, setEditingField] = useState(null);
+  const [tempContent, setTempContent] = useState("");
 
   useEffect(() => {
     const fetchPatient = async () => {
@@ -41,6 +60,16 @@ export default function NewSoapNote() {
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleEditClick = (field) => {
+    setEditingField(field);
+    setTempContent(formData[field]);
+  };
+
+  const handleSaveContent = () => {
+    setFormData({ ...formData, [editingField]: tempContent });
+    setEditingField(null);
   };
 
   const handleSubmit = async (e) => {
@@ -84,7 +113,7 @@ export default function NewSoapNote() {
             </Link>
           </div>
 
-          {/* SOAP 表單欄位 */}
+          {/* SOAP */}
           <div className={styles.inputGroup}>
             <label htmlFor="disabilityCategory">Disability Category</label>
             <input
@@ -108,7 +137,8 @@ export default function NewSoapNote() {
               required
             />
           </div>
-          <div className={styles.inputGroup}>
+
+          {/* <div className={styles.inputGroup}>
             <label htmlFor="subjective">Subjective (S)</label>
             <textarea
               id="subjective"
@@ -144,19 +174,36 @@ export default function NewSoapNote() {
           <div className={styles.inputGroup}>
             <label htmlFor="plan">Plan (P)</label>
             <textarea id="plan" name="plan" rows="4" value={formData.plan} onChange={handleChange} required></textarea>
-          </div>
+          </div> */}
 
-          <button type="submit" disabled={isLoading} className={styles.button}>
-            {isLoading ? (
-              <>
-                <Spinner size="small" />
-                <span>Saving...</span>
-              </>
-            ) : (
-              "Create SOAP"
-            )}
-          </button>
+          <DisplayBox
+            title="Subjective (S)"
+            content={formData.subjective}
+            onClick={() => handleEditClick("subjective")}
+          />
+          <DisplayBox title="Objective (O)" content={formData.objective} onClick={() => handleEditClick("objective")} />
+          <DisplayBox
+            title="Assessment (A)"
+            content={formData.assessment}
+            onClick={() => handleEditClick("assessment")}
+          />
+          <DisplayBox title="Plan (P)" content={formData.plan} onClick={() => handleEditClick("plan")} />
+
+          <Button type="submit" disabled={isLoading}>
+            {isLoading ? "Saving..." : "Save SOAP Note"}
+          </Button>
         </form>
+
+        {/* Modal */}
+        <Modal isOpen={!!editingField} onClose={() => setEditingField(null)} title={`Edit ${editingField}`}>
+          <TiptapEditor value={tempContent} onChange={setTempContent} />
+          <div style={{ marginTop: "1rem", display: "flex", justifyContent: "flex-end", gap: "1rem" }}>
+            <Button variant="secondary" onClick={() => setEditingField(null)}>
+              Cancel
+            </Button>
+            <Button onClick={handleSaveContent}>Save Content</Button>
+          </div>
+        </Modal>
       </div>
     </PageState>
   );

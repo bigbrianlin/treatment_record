@@ -70,12 +70,42 @@ export default function NewPatient() {
         </div>
 
         <div className={styles.inputGroup}>
-          <label htmlFor="gender">Gender</label>
-          <select id="gender" name="gender" value={gender} onChange={handleChange}>
-            <option value="male">Male</option>
-            <option value="female">Female</option>
-            <option value="other">Other</option>
-          </select>
+          <label>Gender</label>
+          <div className={styles.radioGroup}>
+            <div className={styles.radioOption}>
+              <input
+                type="radio"
+                id="male"
+                name="gender"
+                value="male"
+                checked={gender === "male"}
+                onChange={handleChange}
+              />
+              <label htmlFor="male">Male</label>
+            </div>
+            <div className={styles.radioOption}>
+              <input
+                type="radio"
+                id="female"
+                name="gender"
+                value="female"
+                checked={gender === "female"}
+                onChange={handleChange}
+              />
+              <label htmlFor="female">Female</label>
+            </div>
+            <div className={styles.radioOption}>
+              <input
+                type="radio"
+                id="other"
+                name="gender"
+                value="other"
+                checked={gender === "other"}
+                onChange={handleChange}
+              />
+              <label htmlFor="other">Other</label>
+            </div>
+          </div>
         </div>
 
         {/* <div className={styles.inputGroup}>
