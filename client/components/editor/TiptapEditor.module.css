@@ -30,7 +30,23 @@
   outline: none;
 }
 
+/* .editorContent .ProseMirror:focus,
+.editorContent .ProseMirror:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
 .editorContent .ProseMirror p {
+  margin: 0 0 1rem;
+} */
+
+.editorContent :global(.ProseMirror:focus),
+.editorContent :global(.ProseMirror:focus-visible) {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.editorContent :global(.ProseMirror p) {
   margin: 0 0 1rem;
 }
 

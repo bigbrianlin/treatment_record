@@ -17,7 +17,7 @@ const DisplayBox = ({ title, content, onClick }) => (
   <div className={styles.inputGroup}>
     <label>{title}</label>
     <div
-      className={styles.displayBox}
+      className={`${styles.displayBox} ${!content ? styles.placeholder : ""}`}
       onClick={onClick}
       dangerouslySetInnerHTML={{ __html: content || "<p>Click to edit...</p>" }}
     />

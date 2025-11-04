@@ -107,3 +107,43 @@
   align-items: center;
   height: 100vh;
 }
+
+.displayBox {
+  border: 1px dashed #ccc; /* 使用虛線邊框，暗示這是一個可編輯區域 */
+  border-radius: 8px;
+  padding: 1rem;
+  min-height: 150px; /* 設定最小高度 */
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  background-color: #f9f9f9;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.displayBox:hover {
+  border-color: #0070f3;
+  background-color: #f0f5ff; /* 懸停時改變背景色 */
+  box-shadow: 0 2px 8px rgba(0, 112, 243, 0.1);
+}
+
+/* 這是 Tiptap 產生的內容的預設樣式，確保換行有效 */
+.displayBox :global(.ProseMirror) {
+  outline: none;
+}
+.displayBox :global(p) {
+  margin: 0 0 1rem;
+}
+.displayBox :global(p:last-child) {
+  margin-bottom: 0;
+}
+.displayBox :global(ul),
+.displayBox :global(ol) {
+  padding-left: 2rem;
+  margin: 0 0 1rem;
+}
+
+/* 當內容為空時，對 placeholder 文字設定樣式 */
+.displayBox.placeholder :global(p) {
+  color: #888;
+  font-style: italic;
+}
