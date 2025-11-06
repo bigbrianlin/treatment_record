@@ -13,16 +13,21 @@ import TiptapEditor from "@/components/editor/TiptapEditor";
 import Button from "@/components/ui/Button/Button";
 
 // for displaying rich text content
-const DisplayBox = ({ title, content, onClick }) => (
-  <div className={styles.inputGroup}>
-    <label>{title}</label>
-    <div
-      className={`${styles.displayBox} ${!content ? styles.placeholder : ""}`}
-      onClick={onClick}
-      dangerouslySetInnerHTML={{ __html: content || "<p>Click to edit...</p>" }}
-    />
-  </div>
-);
+const DisplayBox = ({ title, content, onClick }) => {
+  // Tiptap content might be "<p></p>"
+  const isEmpty = !content || content === "<p></p>";
+
+  return (
+    <div className={styles.inputGroup}>
+      <label>{title}</label>
+      <div
+        className={`${styles.displayBox} ${isEmpty ? styles.placeholder : ""}`}
+        onClick={onClick}
+        dangerouslySetInnerHTML={{ __html: content || "<p>Click to edit...</p>" }}
+      />
+    </div>
+  );
+};
 
 export default function NewSoapNote() {
   const router = useRouter();

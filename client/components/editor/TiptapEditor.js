@@ -1,13 +1,18 @@
 import React from "react";
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
+import Placeholder from "@tiptap/extension-placeholder";
 import styles from "./TiptapEditor.module.css";
 import Button from "@/components/ui/Button/Button";
+
+import { Bold, Italic, Strikethrough, List, ListOrdered } from "lucide-react";
 
 const Toolbar = ({ editor }) => {
   if (!editor) {
     return null;
   }
+
+  const iconSize = 18;
 
   return (
     <div className={styles.toolbar}>
@@ -18,7 +23,7 @@ const Toolbar = ({ editor }) => {
         size="small"
         variant="secondary"
       >
-        Bold
+        <Bold size={iconSize} />
       </Button>
       <Button
         onClick={() => editor.chain().focus().toggleItalic().run()}
@@ -27,7 +32,7 @@ const Toolbar = ({ editor }) => {
         size="small"
         variant="secondary"
       >
-        Italic
+        <Italic size={iconSize} />
       </Button>
       <Button
         onClick={() => editor.chain().focus().toggleStrike().run()}
@@ -36,7 +41,7 @@ const Toolbar = ({ editor }) => {
         size="small"
         variant="secondary"
       >
-        Strike
+        <Strikethrough size={iconSize} />
       </Button>
       <Button
         onClick={() => editor.chain().focus().toggleBulletList().run()}
@@ -44,7 +49,7 @@ const Toolbar = ({ editor }) => {
         size="small"
         variant="secondary"
       >
-        List
+        <List size={iconSize} />
       </Button>
       <Button
         onClick={() => editor.chain().focus().toggleOrderedList().run()}
@@ -52,7 +57,7 @@ const Toolbar = ({ editor }) => {
         size="small"
         variant="secondary"
       >
-        1. List
+        <ListOrdered size={iconSize} />
       </Button>
     </div>
   );
@@ -66,7 +71,12 @@ const Toolbar = ({ editor }) => {
  */
 export default function TiptapEditor({ value, onChange }) {
   const editor = useEditor({
-    extensions: [StarterKit],
+    extensions: [
+      StarterKit,
+      Placeholder.configure({
+        placeholder: "Click to edit...",
+      }),
+    ],
     content: value,
 
     // Prevent immediate rendering to avoid flicker

@@ -50,7 +50,27 @@
   margin: 0 0 1rem;
 }
 
-.editorContent .ProseMirror ul,
-.editorContent .ProseMirror ol {
+.editorContent :global(.ProseMirror p:last-child) {
+  margin-bottom: 0;
+}
+
+.editorContent :global(.ProseMirror ul),
+.editorContent :global(.ProseMirror ol) {
   padding-left: 2rem;
+  margin: 1rem 0;
+}
+
+.editorContent :global(.ProseMirror strong) {
+  font-weight: bold;
+}
+.editorContent :global(.ProseMirror em) {
+  font-style: italic;
+}
+
+.editorContent :global(.ProseMirror p.is-editor-empty:first-child::before) {
+  content: attr(data-placeholder);
+  float: left;
+  color: #adb5bd;
+  pointer-events: none;
+  height: 0;
 }
