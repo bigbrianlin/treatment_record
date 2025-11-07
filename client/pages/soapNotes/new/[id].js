@@ -143,44 +143,6 @@ export default function NewSoapNote() {
             />
           </div>
 
-          {/* <div className={styles.inputGroup}>
-            <label htmlFor="subjective">Subjective (S)</label>
-            <textarea
-              id="subjective"
-              name="subjective"
-              rows="4"
-              value={formData.subjective}
-              onChange={handleChange}
-              required
-            ></textarea>
-          </div>
-          <div className={styles.inputGroup}>
-            <label htmlFor="objective">Objective (O)</label>
-            <textarea
-              id="objective"
-              name="objective"
-              rows="4"
-              value={formData.objective}
-              onChange={handleChange}
-              required
-            ></textarea>
-          </div>
-          <div className={styles.inputGroup}>
-            <label htmlFor="assessment">Assessment (A)</label>
-            <textarea
-              id="assessment"
-              name="assessment"
-              rows="4"
-              value={formData.assessment}
-              onChange={handleChange}
-              required
-            ></textarea>
-          </div>
-          <div className={styles.inputGroup}>
-            <label htmlFor="plan">Plan (P)</label>
-            <textarea id="plan" name="plan" rows="4" value={formData.plan} onChange={handleChange} required></textarea>
-          </div> */}
-
           <DisplayBox
             title="Subjective (S)"
             content={formData.subjective}

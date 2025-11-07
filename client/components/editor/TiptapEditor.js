@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Placeholder from "@tiptap/extension-placeholder";
@@ -16,6 +16,7 @@ const Toolbar = ({ editor }) => {
 
   return (
     <div className={styles.toolbar}>
+      {/* Bold Button */}
       <Button
         onClick={() => editor.chain().focus().toggleBold().run()}
         disabled={!editor.can().chain().focus().toggleBold().run()}
@@ -25,6 +26,8 @@ const Toolbar = ({ editor }) => {
       >
         <Bold size={iconSize} />
       </Button>
+
+      {/* Italic Button */}
       <Button
         onClick={() => editor.chain().focus().toggleItalic().run()}
         disabled={!editor.can().chain().focus().toggleItalic().run()}
@@ -34,6 +37,8 @@ const Toolbar = ({ editor }) => {
       >
         <Italic size={iconSize} />
       </Button>
+
+      {/* Strike Button */}
       <Button
         onClick={() => editor.chain().focus().toggleStrike().run()}
         disabled={!editor.can().chain().focus().toggleStrike().run()}
@@ -43,6 +48,8 @@ const Toolbar = ({ editor }) => {
       >
         <Strikethrough size={iconSize} />
       </Button>
+
+      {/* Bullet List Button */}
       <Button
         onClick={() => editor.chain().focus().toggleBulletList().run()}
         className={editor.isActive("bulletList") ? styles.isActive : ""}
@@ -51,6 +58,8 @@ const Toolbar = ({ editor }) => {
       >
         <List size={iconSize} />
       </Button>
+
+      {/* Ordered List Button */}
       <Button
         onClick={() => editor.chain().focus().toggleOrderedList().run()}
         className={editor.isActive("orderedList") ? styles.isActive : ""}
@@ -70,6 +79,9 @@ const Toolbar = ({ editor }) => {
  * @param {function} props.onChange - Callback when content changes
  */
 export default function TiptapEditor({ value, onChange }) {
+  // Create a dummy state. Its only purpose is to trigger a re-render.
+  const [, setForceRender] = useState(0);
+
   const editor = useEditor({
     extensions: [
       StarterKit,
@@ -85,6 +97,13 @@ export default function TiptapEditor({ value, onChange }) {
     // Update parent component on content change
     onUpdate: ({ editor }) => {
       onChange(editor.getHTML());
+    },
+
+    // onTransaction triggers on *any* state change (incl. selection, stored marks)
+    onTransaction: () => {
+      // Call setState to force a re-render of this component,
+      // which in turn re-renders the Toolbar and re-evaluates editor.isActive()
+      setForceRender(Math.random());
     },
   });
 

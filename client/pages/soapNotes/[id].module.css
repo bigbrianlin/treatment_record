@@ -55,9 +55,26 @@
 }
 
 .soapSection p {
-  white-space: pre-wrap; /* 保留換行和空格 */
-  line-height: 1.6;
   color: #444;
+  margin: 0 0 0.5rem;
+}
+
+.soapSection p:last-child {
+  margin-bottom: 0;
+}
+
+.soapSection ol,
+.soapSection ul {
+  padding-left: 1.5rem;
+  margin: 1rem 0;
+}
+
+.soapSection li {
+  margin-bottom: 0.5rem;
+}
+
+.soapSection li:last-child {
+  margin-bottom: 0;
 }
 
 .backLink {
