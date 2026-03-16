@@ -1,0 +1,13 @@
+.info {
+  display: flex;
+  max-width: 100%;
+  align-items: center;
+  justify-content: center;
+  height: 60vh;
+}
+
+.info p {
+  font-size: 3rem;
+  text-transform: uppercase;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
