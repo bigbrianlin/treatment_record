@@ -18,6 +18,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 app.use(passport.initialize());
 
+app.get("/health", (req, res) => {
+  res.status(200).send("Server is healthy");
+});
+
 // connect to database
 const mongoURI = process.env.MONGODB_URI;
 mongoose
