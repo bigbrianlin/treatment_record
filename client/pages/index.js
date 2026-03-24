@@ -54,6 +54,12 @@ export default function Home() {
           <FeatureCard href="/test1" title="Test1" description="Test" />
           <FeatureCard href="/test1" title="Test1" description="Test" />
           <FeatureCard href="/test1" title="Test1" description="Test" />
+          <FeatureCard href="/test1" title="Test1" description="Test" />
+          <FeatureCard href="/test1" title="Test1" description="Test" />
+          <FeatureCard href="/test1" title="Test1" description="Test" />
+          <FeatureCard href="/test1" title="Test1" description="Test" />
+          <FeatureCard href="/test1" title="Test1" description="Test" />
+          <FeatureCard href="/test1" title="Test1" description="Test" />
         </div>
       </section>
     </div>

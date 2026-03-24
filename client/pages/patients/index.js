@@ -31,18 +31,18 @@ export default function Patients() {
     <PageState isLoading={isLoading} error={error}>
       <div className={styles.container}>
         <Head>
-          <title>All Patients</title>
+          <title>Patients</title>
           <meta name="description" content="List of all patients in the system." />
         </Head>
 
-        <div className={styles.header}>
+        {/* <div className={styles.header}>
           <h1>Patients</h1>
           <Link href="patients/new" passHref>
             <Button variant="primary">Add New Patient</Button>
           </Link>
-        </div>
+        </div> */}
         {patients.length > 0 ? (
-          <div className={styles.patientsGrid}>
+          <div className={styles.patientsList}>
             {patients.map((patient) => (
               <PatientCard key={patient._id} patient={patient} />
             ))}
@@ -50,6 +50,22 @@ export default function Patients() {
         ) : (
           <p className={styles.noPatients}>No patients found in the system.</p>
         )}
+
+        <Link href="/patients/new" passHref className={styles.addFloatingButton}>
+          <svg
+            width="28"
+            height="28"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <line x1="12" y1="5" x2="12" y2="19"></line>
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+          </svg>
+        </Link>
       </div>
     </PageState>
   );

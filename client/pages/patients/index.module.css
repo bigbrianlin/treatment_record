@@ -1,32 +1,49 @@
-/* client/pages/patients/index.module.css */
-
 .container {
-  padding: 2rem 2rem;
-  margin: 0 2rem;
+  padding: 1rem;
 }
 
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 2rem;
-  border-bottom: 1px solid #eaeaea;
-  padding-bottom: 1rem;
-}
-
-.header h1 {
-  font-size: var(--font-size-xxl);
-}
-
-.patientsGrid {
+.patientsList {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fill, 250px);
+  justify-content: center;
+  gap: 24px;
+  width: 100%;
 }
 
 .noPatients {
   text-align: center;
-  padding: 4rem 0;
   font-size: 1.2rem;
   color: #888;
+  padding: 3rem;
+  grid-column: 1 / -1;
+}
+
+.addFloatingButton {
+  position: fixed;
+  bottom: 70px;
+  right: 50px;
+  z-index: 1001;
+
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  background: linear-gradient(135deg, #e67e22 0%, #d35400 100%);
+
+  color: white;
+  font-size: 3rem;
+  font-weight: 300;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  box-shadow: 0 10px 25px rgba(230, 126, 34, 0.2), 0 5px 10px rgba(0, 0, 0, 0.05);
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.addFloatingButton:hover {
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 0 15px 35px rgba(230, 126, 34, 0.3), 0 5px 15px rgba(0, 0, 0, 0.08);
 }

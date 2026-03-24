@@ -12,7 +12,7 @@ export default function Layout({ children }) {
         <meta name="description" content="A treatment record system built with Next.js" />
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="author" content="Brian" />
+        <meta name="author" content="Chong-Jun Lin" />
         <link rel="icon" href="favicon.ico" />
       </Head>
 
