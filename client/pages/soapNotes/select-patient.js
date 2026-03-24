@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import PatientService from "@/services/patient.service";
+import SelectPatientCard from "@/components/patients/SelectPatient/SelectPatientCard";
 import styles from "./select-patient.module.css";
 import PageState from "@/components/ui/PageState/PageState";
 
@@ -26,29 +27,25 @@ export default function SelectPatient() {
     fetchPatients();
   });
 
-  const handlePatientSelect = (patientId) => {
-    router.push(`/soapNotes/new/${patientId}`);
-  };
-
   return (
     <PageState isLoading={isLoading} error={error}>
       <div className={styles.container}>
         <Head>
           <title>Select Patient</title>
         </Head>
-        <h1>Select a Patient to Create a SOAP Note</h1>
-        <div className={styles.patientGrid}>
-          {patients.length > 0 ? (
-            patients.map((patient) => (
-              <button key={patient._id} onClick={() => handlePatientSelect(patient._id)} className={styles.patientCard}>
-                <h3>{patient.name}</h3>
-                <p>MRN: {patient.medicalRecordNumber}</p>
-              </button>
-            ))
-          ) : (
-            <p>No patients found.</p>
-          )}
+        <div className={styles.header}>
+          <h1 className={styles.title}>New SOAP Note</h1>
+          <p className={styles.subtitle}>Select a patient to begin documenting.</p>
         </div>
+        {patients.length > 0 ? (
+          <div className={styles.patientsList}>
+            {patients.map((patient) => (
+              <SelectPatientCard key={patient._id} patient={patient} />
+            ))}
+          </div>
+        ) : (
+          <p className={styles.noPatients}>No patients found in the system.</p>
+        )}
       </div>
     </PageState>
   );

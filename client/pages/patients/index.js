@@ -35,12 +35,6 @@ export default function Patients() {
           <meta name="description" content="List of all patients in the system." />
         </Head>
 
-        {/* <div className={styles.header}>
-          <h1>Patients</h1>
-          <Link href="patients/new" passHref>
-            <Button variant="primary">Add New Patient</Button>
-          </Link>
-        </div> */}
         {patients.length > 0 ? (
           <div className={styles.patientsList}>
             {patients.map((patient) => (
