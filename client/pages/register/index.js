@@ -51,7 +51,7 @@ export default function Register() {
           {error && <div className={styles.error}>{error}</div>}
           {/* Header */}
           <h1 className={styles.title}>Create account</h1>
-          <p className={styles.subtitle}>Join us to start managing your treatment records.</p>
+          <p className={styles.subtitle}>Register your account to manage treatment notes.</p>
 
           {/* Register Form */}
           <form onSubmit={handleSubmit} className={styles.form}>

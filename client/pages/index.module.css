@@ -1,55 +1,81 @@
-/* client/pages/index.module.css */
-
 .container {
-  padding: 2rem 2rem;
-  margin: 0 2rem;
   display: flex;
   flex-direction: column;
-  gap: 2rem;
   align-items: center;
-}
+  justify-content: center;
 
-.description {
-  margin: 0.5rem 0;
-  font-size: 1.5rem;
+  padding: 2rem;
   text-align: center;
-  color: #555;
 }
 
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 1.5rem;
-  margin-top: 2rem;
+.welcomeBox {
+  margin-top: 12vh;
+  background: rgba(255, 255, 255, 0.2);
+
+  /* The blur effect for the glass look */
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+
+  padding: 3.5rem 4rem;
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 8px 32px rgba(234, 88, 12, 0.08);
+  max-width: 800px;
+  animation: fadeUp 1s ease-out forwards;
 }
 
-.section {
-  width: 95%;
-  /* margin-top: 3rem; */
+.iconWrapper {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #ea580c 0%, #f59e0b 100%);
+  color: white;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 4px 15px rgba(234, 88, 12, 0.3);
 }
 
-.sectionHeader {
-  position: relative;
-  text-align: center;
-  margin-bottom: 2rem;
+.title {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0 0 1rem 0;
+  letter-spacing: -0.02em;
 }
 
-.separator {
-  border: none;
-  border-top: 1px solid #eaeaea;
-  width: 100%;
+.subtitle {
+  font-size: 1.15rem;
+  color: #4b5563;
+  line-height: 1.6;
+  margin: 0;
 }
 
-.sectionTitle {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: #f9f9f9;
-  padding: 0 1.5rem;
-  font-size: 1.2rem;
-  color: #888;
+.subtitle strong {
+  color: #ea580c;
   font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 1px;
+}
+
+@keyframes fadeUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 600px) {
+  .welcomeBox {
+    padding: 2.5rem 1.5rem;
+  }
+  .title {
+    font-size: 1.75rem;
+  }
+  .subtitle {
+    font-size: 1rem;
+  }
 }

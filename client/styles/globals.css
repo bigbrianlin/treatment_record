@@ -29,7 +29,9 @@
 }
 
 body {
-  background-color: var(--background-color);
+  background: linear-gradient(135deg, #fff8f0 0%, #ffedd6 50%, #ffe4c4 100%);
+  background-attachment: fixed;
+  min-height: 100vh;
   color: var(--text-color);
   font-family: var(--font-family-base);
   font-size: var(--font-size-base);
