@@ -138,16 +138,16 @@
   box-shadow: 0 6px 14px rgba(37, 99, 235, 0.3);
 }
 
-/* Edit Patient (灰色線框按鈕) */
+/* Edit Patient */
 .btnIconOutline {
   background-color: transparent;
-  color: #4b5563; /* 鉛筆的顏色 */
+  color: #4b5563;
   border: 1px solid #d1d5db;
 }
 
 .btnIconOutline:hover {
   background-color: #f9fafb;
-  color: #1a1a1a; /* 懸停時顏色加深 */
+  color: #1a1a1a;
   border-color: #9ca3af;
 }
 

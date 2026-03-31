@@ -108,30 +108,31 @@ export default function EditSoapNote() {
               For Patient: <strong>{formData?.patient.name}</strong> (MRN: {formData?.patient.medicalRecordNumber})
             </p>
           </div>
+          <div className={styles.inputGroupWrap}>
+            <div className={styles.inputGroup}>
+              <label htmlFor="disabilityCategory">Disability Category</label>
+              <input
+                id="disabilityCategory"
+                name="disabilityCategory"
+                type="text"
+                value={formData?.disabilityCategory}
+                onChange={handleChange}
+                required
+              />
+            </div>
 
-          <div className={styles.inputGroup}>
-            <label htmlFor="disabilityCategory">Disability Category</label>
-            <input
-              id="disabilityCategory"
-              name="disabilityCategory"
-              type="text"
-              value={formData?.disabilityCategory}
-              onChange={handleChange}
-              required
-            />
-          </div>
-
-          <div className={styles.inputGroup}>
-            <label htmlFor="sessionCount">Session Count</label>
-            <input
-              id="sessionCount"
-              name="sessionCount"
-              type="number"
-              min="1"
-              value={formData?.sessionCount}
-              onChange={handleChange}
-              required
-            />
+            <div className={styles.inputGroup}>
+              <label htmlFor="sessionCount">Session Count</label>
+              <input
+                id="sessionCount"
+                name="sessionCount"
+                type="number"
+                min="1"
+                value={formData?.sessionCount}
+                onChange={handleChange}
+                required
+              />
+            </div>
           </div>
 
           <DisplayBox
@@ -166,10 +167,12 @@ export default function EditSoapNote() {
         <Modal isOpen={!!editingField} onClose={() => setEditingField(null)} title={`Edit ${editingField}`}>
           <TiptapEditor value={tempContent} onChange={setTempContent} />
           <div style={{ marginTop: "1rem", display: "flex", justifyContent: "flex-end", gap: "1rem" }}>
-            <Button variant="secondary" onClick={() => setEditingField(null)}>
+            <button className={styles.editButton} onClick={() => setEditingField(null)}>
               Cancel
-            </Button>
-            <Button onClick={handleSaveContent}>Save Content</Button>
+            </button>
+            <button className={styles.saveButton} onClick={handleSaveContent}>
+              Save Content
+            </button>
           </div>
         </Modal>
       </div>

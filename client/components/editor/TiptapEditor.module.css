@@ -21,14 +21,12 @@
 }
 
 .toolbar button:hover {
-  background-color: #f0f0f0;
   transform: scale(1.1);
   cursor: pointer;
 }
 
 .toolbar .isActive {
-  background-color: #f0f0f0;
-  border-color: #0070f3;
+  border-color: #e65d40;
   transform: scale(1);
 }
 
@@ -60,8 +58,8 @@
 
 .editorContent :global(.ProseMirror ul),
 .editorContent :global(.ProseMirror ol) {
-  padding-left: 2rem;
-  margin: 1rem 0;
+  padding-left: 1.5rem;
+  margin: 1rem 0 !important;
 }
 
 .editorContent :global(.ProseMirror strong) {

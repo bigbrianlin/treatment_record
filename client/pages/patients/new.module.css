@@ -1,5 +1,3 @@
-/* client/pages/patients/new.module.css */
-
 .container {
   max-width: 700px;
   margin: 2rem auto;
@@ -29,7 +27,7 @@
 }
 
 .backLink {
-  color: #0070f3;
+  color: #e65d40;
   text-decoration: none;
   font-size: 0.9rem;
 }
@@ -58,11 +56,16 @@
   border-radius: 5px;
   font-size: 1rem;
   background-color: #fff;
-  box-sizing: border-box; /* 確保 padding 不會影響寬度 */
+  box-sizing: border-box;
 }
 
 .inputGroup textarea {
   resize: vertical;
+}
+
+.inputGroup input,
+.inputGroup select:focus {
+  outline: none;
 }
 
 .button {
@@ -70,7 +73,7 @@
   padding: 0.75rem;
   border: none;
   border-radius: 5px;
-  background-color: #0070f3;
+  background-color: #e65d40;
   color: white;
   font-size: 1.1rem;
   font-weight: bold;
@@ -84,7 +87,7 @@
 }
 
 .button:hover {
-  background-color: #005bb5;
+  background-color: #eb3713;
 }
 
 .button:disabled {
@@ -123,4 +126,5 @@
   width: 1.15em;
   height: 1.15em;
   cursor: pointer;
+  accent-color: #ed6a2d;
 }
