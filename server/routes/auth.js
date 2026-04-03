@@ -54,9 +54,20 @@ router.post("/login", async (req, res) => {
   const foundUser = await User.findOne({ username: req.body.username });
   if (!foundUser) return res.status(401).send("Username does not exist or password is incorrect");
 
+  // check if the account is active
+  if (!foundUser.isActive) {
+    return res.status(403).json({
+      message: "Account has been deactivated. Please contact the administrator.",
+    });
+  }
+
   // check if password is correct
   const validPassword = await foundUser.comparePassword(req.body.password);
-  if (!validPassword) return res.status(401).send("Invalid password");
+  if (!validPassword) return res.status(401).send("Username does not exist or password is incorrect");
+
+  foundUser.lastLoginAt = new Date();
+  // Use validateBeforeSave: false to avoid triggering other validations during login
+  await foundUser.save({ validateBeforeSave: false });
 
   // ---- JWT token generation logic ----
   // after password is validated, generate a token and send to client
@@ -75,7 +86,14 @@ router.post("/login", async (req, res) => {
     return res.status(200).send({
       message: "Login successful",
       token: "Bearer " + token,
-      user: { _id: foundUser._id, username: foundUser.username, role: foundUser.role },
+      user: {
+        _id: foundUser._id,
+        username: foundUser.username,
+        role: foundUser.role,
+        mustChangePassword: foundUser.mustChangePassword,
+        firstname: foundUser.firstname,
+        lastname: foundUser.lastname,
+      },
     });
   } catch (err) {
     return res.status(500).send("Error logging in: " + err.message);

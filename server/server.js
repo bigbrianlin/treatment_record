@@ -8,6 +8,8 @@ require("./config/passport")(passport);
 const authRoute = require("./routes").auth;
 const patientRoute = require("./routes").patients;
 const soapNoteRoute = require("./routes").soapNotes;
+const adminRoute = require("./routes").admin;
+const usersRoute = require("./routes").users;
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -47,3 +49,5 @@ mongoose
 app.use("/api/auth", authRoute);
 app.use("/api/patients", passport.authenticate("jwt", { session: false }), patientRoute);
 app.use("/api/soapNotes", passport.authenticate("jwt", { session: false }), soapNoteRoute);
+app.use("/api/admin", passport.authenticate("jwt", { session: false }), adminRoute);
+app.use("/api/users", passport.authenticate("jwt", { session: false }), usersRoute);
