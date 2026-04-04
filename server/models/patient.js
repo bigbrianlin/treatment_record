@@ -9,9 +9,14 @@ const patientSchema = new Schema(
       unique: true,
     },
     // ---- Patient Basic Information ----
-    name: {
+    firstname: {
       type: String,
-      required: [true, "Patient name is required"],
+      required: [true, "Firstname is required"],
+      trim: true,
+    },
+    lastname: {
+      type: String,
+      required: [true, "Lastname is required"],
       trim: true,
     },
     birthDate: {
@@ -23,11 +28,30 @@ const patientSchema = new Schema(
       required: [true, "Gender is required"],
       enum: ["male", "female", "other"],
     },
+    nationalId: {
+      type: String,
+      trim: true,
+    },
 
     // ---- Contact Information ----
-    // phone number
-    // email
-    // address
+    phone: {
+      type: String,
+      required: [true, "Phone number is required"],
+    },
+    email: { type: String, trim: true },
+    address: { type: String },
+
+    emergencyContact: {
+      name: { type: String },
+      relationship: { type: String },
+      phone: { type: String },
+    },
+    // Medical Background
+    allergies: [{ type: String }], // Array of strings for multiple allergies
+    medicalHistory: { type: String }, // Can be a text area for general notes
+
+    // Administrative Control
+    isActive: { type: Boolean, default: true },
   },
   {
     timestamps: true,

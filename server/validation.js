@@ -50,21 +50,57 @@ const upadateSoapNoteValidation = (data) => {
 
 const patientValidation = (data) => {
   const schema = Joi.object({
-    name: Joi.string().max(100).required(),
+    // Basic Information (Required fields)
+    firstname: Joi.string().max(50).required(),
+    lastname: Joi.string().max(50).required(),
     birthDate: Joi.date().required(),
-    gender: Joi.string().required().valid("male", "female", "other"),
+    gender: Joi.string().valid("male", "female", "other").required(),
+    phone: Joi.string().max(20).required(),
+
+    // Optional Information
+    // allow("", null) prevents validation errors when the frontend sends empty strings
+    nationalId: Joi.string().allow("", null).optional(),
+    email: Joi.string().email().allow("", null).optional(),
+    address: Joi.string().allow("", null).optional(),
+
+    // Nested Object for Emergency Contact
+    emergencyContact: Joi.object({
+      name: Joi.string().allow("", null).optional(),
+      relationship: Joi.string().allow("", null).optional(),
+      phone: Joi.string().allow("", null).optional(),
+    }).optional(),
+
+    // Medical Background
+    allergies: Joi.array().items(Joi.string()).optional(),
+    medicalHistory: Joi.string().allow("", null).optional(),
+
+    // Administrative Control
+    isActive: Joi.boolean().optional(),
   });
+
   return schema.validate(data);
 };
 
 const updatePatientValidation = (data) => {
   const schema = Joi.object({
-    name: Joi.string().min(3).max(100),
-    birthDate: Joi.date(),
-    gender: Joi.string().valid("male", "female", "other"),
-    // contactNumber: Joi.string().allow(""),
-    // address: Joi.string().allow(""),
+    firstname: Joi.string().max(50).optional(),
+    lastname: Joi.string().max(50).optional(),
+    birthDate: Joi.date().optional(),
+    gender: Joi.string().valid("male", "female", "other").optional(),
+    phone: Joi.string().max(20).optional(),
+    nationalId: Joi.string().allow("", null).optional(),
+    email: Joi.string().email().allow("", null).optional(),
+    address: Joi.string().allow("", null).optional(),
+    emergencyContact: Joi.object({
+      name: Joi.string().allow("", null).optional(),
+      relationship: Joi.string().allow("", null).optional(),
+      phone: Joi.string().allow("", null).optional(),
+    }).optional(),
+    allergies: Joi.array().items(Joi.string()).optional(),
+    medicalHistory: Joi.string().allow("", null).optional(),
+    isActive: Joi.boolean().optional(),
   });
+
   return schema.validate(data);
 };
 
