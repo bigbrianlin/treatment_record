@@ -1,50 +1,49 @@
 import { useState, useEffect } from "react";
 import Head from "next/head";
 import Link from "next/link";
-import PatientService from "@/services/patient.service";
+import AdminService from "@/services/admin.service";
 import styles from "./index.module.css";
 import PageState from "@/components/ui/PageState/PageState";
-import PatientCard from "@/components/patients/PatientCard/PatientCard";
+import UserCard from "@/components/admin/UserCard/UserCard";
 
-export default function Patients() {
-  const [patients, setPatients] = useState([]);
+export default function Users() {
+  const [users, setUsers] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
 
   useEffect(() => {
-    const fetchPatients = async () => {
+    const fetchUsers = async () => {
       try {
-        const allPatientsResponse = await PatientService.getAllPatients();
-        setPatients(allPatientsResponse.data);
+        const users = await AdminService.getAllUsers();
+        setUsers(users);
       } catch (err) {
-        setError("Failed to fetch patients. Please try again later.");
-        console.error("Failed to fetch patients:", err);
+        const errorMessage = err.response?.data?.message || "Failed to load users. Please try again later.";
+        setError(errorMessage);
       } finally {
         setIsLoading(false);
       }
     };
-    fetchPatients();
-  });
+    fetchUsers();
+  }, []);
 
   return (
     <PageState isLoading={isLoading} error={error}>
       <div className={styles.container}>
         <Head>
-          <title>Patients</title>
-          <meta name="description" content="List of all patients in the system." />
+          <title>Users</title>
         </Head>
 
-        {patients.length > 0 ? (
+        {users.length > 0 ? (
           <div className={styles.patientsList}>
-            {patients.map((patient) => (
-              <PatientCard key={patient._id} patient={patient} />
+            {users.map((user) => (
+              <UserCard key={user._id} user={user} />
             ))}
           </div>
         ) : (
-          <p className={styles.noPatients}>No patients found in the system.</p>
+          <p className={styles.noPatients}>No users found in the system.</p>
         )}
 
-        <Link href="/patients/new" passHref className={styles.addFloatingButton}>
+        <Link href="/admin/users/new" passHref className={styles.addFloatingButton}>
           <svg
             width="28"
             height="28"
@@ -64,4 +63,4 @@ export default function Patients() {
   );
 }
 
-Patients.auth = true;
+Users.auth = { requireAdmin: true };

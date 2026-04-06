@@ -52,18 +52,23 @@ export default function SoapNoteDetail() {
     }
   };
 
-  const isOwner = currentUser && note && (currentUser._id === note.therapist._id || currentUser.role === "leader");
+  const isOwner = currentUser && note && (currentUser._id === note.therapist._id || currentUser.role === "admin");
+  const patient = note?.patient;
+  const fullName =
+    patient?.firstname && patient?.lastname
+      ? `${patient?.firstname} ${patient?.lastname}`
+      : patient?.firstname || "Unknown Patient";
 
   return (
     <PageState isLoading={isLoading} error={error} data={note} noDataMsg="No SOAP note found.">
       <div className={styles.container}>
         <Head>
-          <title>Note Details: {note?.patient?.name}</title>
+          <title>Note Details: {fullName}</title>
         </Head>
 
         <div className={styles.headerContainer}>
           <div className={styles.header}>
-            <h1>Patient: {note?.patient?.name}</h1>
+            <h1>Patient: {fullName}</h1>
             <p>Medical Record Number: {note?.patient?.medicalRecordNumber}</p>
           </div>
           {isOwner && (

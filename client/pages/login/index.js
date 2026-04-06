@@ -29,8 +29,16 @@ export default function Login() {
     setError("");
 
     try {
-      await login(username, password);
-      // router.push("/");
+      const data = await login(username, password);
+      const user = data.user;
+
+      if (user.mustChangePassword) {
+        router.push("/profile/change-password");
+      } else if (user.role === "admin") {
+        router.push("/admin");
+      } else {
+        router.push("/");
+      }
     } catch (err) {
       const errorMessage = err.response?.data?.message || err.response?.data || "Login failed. Please try again.";
       setError(errorMessage);
@@ -41,7 +49,13 @@ export default function Login() {
 
   useEffect(() => {
     if (currentUser) {
-      router.push("/");
+      if (currentUser.mustChangePassword) {
+        router.push("/profile/change-password");
+      } else if (currentUser.role === "admin") {
+        router.push("/admin");
+      } else {
+        router.push("/");
+      }
     }
   }, [currentUser, router]);
 
@@ -135,14 +149,6 @@ export default function Login() {
               )}
             </button>
           </form>
-
-          {/* Footer Link */}
-          <div className={styles.footerText}>
-            Don't have an account?
-            <Link href="/register" className={styles.link}>
-              Register
-            </Link>
-          </div>
         </div>
       </div>
     </div>

@@ -9,14 +9,17 @@ import styles from "./new.module.css";
 export default function NewPatient() {
   const router = useRouter();
   const [formData, setFormData] = useState({
-    name: "",
+    firstname: "",
+    lastname: "",
     birthDate: "",
     gender: "male",
+    email: "",
+    phone: "",
   });
 
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
-  const { name, birthDate, gender } = formData;
+  const { firstname, lastname, birthDate, gender, email, phone } = formData;
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -54,8 +57,13 @@ export default function NewPatient() {
         {error && <p className={styles.error}>{error}</p>}
 
         <div className={styles.inputGroup}>
-          <label htmlFor="name">Name</label>
-          <input id="name" name="name" type="text" value={name} onChange={handleChange} />
+          <label htmlFor="firstname">Firstname</label>
+          <input id="firstname" name="firstname" type="text" value={firstname} onChange={handleChange} />
+        </div>
+
+        <div className={styles.inputGroup}>
+          <label htmlFor="lastname">Lastname</label>
+          <input id="lastname" name="lastname" type="text" value={lastname} onChange={handleChange} />
         </div>
 
         <div className={styles.inputGroup}>
@@ -108,15 +116,15 @@ export default function NewPatient() {
           </div>
         </div>
 
-        {/* <div className={styles.inputGroup}>
-          <label htmlFor="contactNumber">Contact Number (Optional)</label>
-          <input id="contactNumber" name="contactNumber" type="tel" value={contactNumber} onChange={handleChange} />
+        <div className={styles.inputGroup}>
+          <label htmlFor="email">Email</label>
+          <input id="email" name="email" type="text" value={email} onChange={handleChange} />
         </div>
 
         <div className={styles.inputGroup}>
-          <label htmlFor="address">Address (Optional)</label>
-          <textarea id="address" name="address" rows="3" value={address} onChange={handleChange}></textarea>
-        </div> */}
+          <label htmlFor="phone">Phone Number</label>
+          <input id="phone" name="phone" type="tel" value={phone} onChange={handleChange} />
+        </div>
 
         <button type="submit" disabled={isLoading} className={styles.button}>
           {isLoading ? (

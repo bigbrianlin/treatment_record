@@ -36,7 +36,7 @@ export const AuthProvider = ({ children }) => {
     router.push("/login");
   };
 
-  const value = { currentUser, login, logout };
+  const value = { currentUser, login, logout, setCurrentUser };
 
   return <AuthContext.Provider value={value}>{!isLoading && children}</AuthContext.Provider>;
 };

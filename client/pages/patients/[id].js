@@ -49,11 +49,16 @@ export default function PatientDetail() {
     }
   };
 
+  const fullName =
+    patient?.firstname && patient?.lastname
+      ? `${patient?.firstname} ${patient?.lastname}`
+      : patient?.firstname || "Unknown Patient";
+
   return (
     <PageState isLoading={isLoading} error={error} data={patient} noDataMsg="No patient data found.">
       <div className={styles.container}>
         <Head>
-          <title>Patient: {patient?.name}</title>
+          <title>Patient: {fullName}</title>
         </Head>
 
         {/* <div className={styles.topNav}>
@@ -79,7 +84,7 @@ export default function PatientDetail() {
         <div className={styles.headerWrap}>
           <div className={styles.header}>
             <div className={styles.headerLeft}>
-              <h1 className={styles.name}>{patient?.name || "N/A"}</h1>
+              <h1 className={styles.name}>{fullName}</h1>
               <p className={styles.mrn}>MRN: {patient?.medicalRecordNumber || "N/A"}</p>
             </div>
 
@@ -163,7 +168,11 @@ export default function PatientDetail() {
             </div>
             <div className={styles.infoItem}>
               <span className={styles.label}>Contact Number</span>
-              <span className={styles.value}>{patient?.contactNumber || "N/A"}</span>
+              <span className={styles.value}>{patient?.phone || "N/A"}</span>
+            </div>
+            <div className={styles.infoItem}>
+              <span className={styles.label}>Email</span>
+              <span className={styles.value}>{patient?.email || "N/A"}</span>
             </div>
             <div className={`${styles.infoItem} ${styles.fullWidth}`}>
               <span className={styles.label}>Address</span>

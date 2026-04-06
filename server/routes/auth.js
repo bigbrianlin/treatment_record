@@ -93,6 +93,8 @@ router.post("/login", async (req, res) => {
         mustChangePassword: foundUser.mustChangePassword,
         firstname: foundUser.firstname,
         lastname: foundUser.lastname,
+        email: foundUser.email,
+        phoneNumber: foundUser.phoneNumber,
       },
     });
   } catch (err) {

@@ -1,23 +1,24 @@
 import Link from "next/link";
-import styles from "./PatientCard.module.css";
+import styles from "./UserCard.module.css";
 
-export default function PatientCard({ patient }) {
-  const formattedDate = new Date(patient.birthDate).toLocaleDateString();
+export default function UserCard({ user }) {
   const fullName =
-    patient.firstname && patient.lastname
-      ? `${patient.firstname} ${patient.lastname}`
-      : patient.firstname || "Unknown Patient";
+    user.firstname && user.lastname ? `${user.firstname} ${user.lastname}` : user.firstname || "Unknown Staff";
+
+  const statusText = user.mustChangePassword ? "Pending" : "Active";
+  const statusClass = user.mustChangePassword ? styles.statusPending : styles.statusActive;
 
   return (
-    <Link href={`/patients/${patient._id}`} className={styles.patientCard}>
+    <Link href={`/admin/users/${user._id}`} className={styles.userCard}>
       <div className={styles.topLine}></div>
       <div className={styles.contentContainer}>
         {/* Patient Info Area */}
         <div className={styles.infoWrapper}>
           <h3 className={styles.name}>{fullName}</h3>
           <div className={styles.details}>
-            <span>{patient.medicalRecordNumber}</span>
-            <sapn>DOB: {formattedDate}</sapn>
+            <span>{user.role}</span>
+            <span>ID: {user.username}</span>
+            <span className={statusClass}>{statusText}</span>
           </div>
         </div>
         <div className={styles.actionIcon}>

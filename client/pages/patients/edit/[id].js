@@ -45,9 +45,12 @@ export default function EditPatient() {
     setError("");
 
     const updateData = {
-      name: formData.name,
+      firstname: formData.firstname,
+      lastname: formData.lastname,
       birthDate: formData.birthDate,
       gender: formData.gender,
+      email: formData.email,
+      phone: formData.phone,
     };
 
     try {
@@ -74,10 +77,28 @@ export default function EditPatient() {
             </Link>
           </div>
 
-          {/* 表單欄位與 new.js 頁面幾乎相同 */}
           <div className={styles.inputGroup}>
-            <label htmlFor="name">Name</label>
-            <input id="name" name="name" type="text" value={formData?.name} onChange={handleChange} required />
+            <label htmlFor="firstname">Firstname</label>
+            <input
+              id="firstname"
+              name="firstname"
+              type="text"
+              value={formData?.firstname}
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          <div className={styles.inputGroup}>
+            <label htmlFor="lastname">Lastname</label>
+            <input
+              id="lastname"
+              name="lastname"
+              type="text"
+              value={formData?.lastname}
+              onChange={handleChange}
+              required
+            />
           </div>
           <div className={styles.inputGroup}>
             <label htmlFor="birthDate">Date of Birth</label>
@@ -98,6 +119,15 @@ export default function EditPatient() {
               <option value="female">Female</option>
               <option value="other">Other</option>
             </select>
+          </div>
+
+          <div className={styles.inputGroup}>
+            <label htmlFor="email">Email</label>
+            <input id="email" name="email" type="text" value={formData?.email} onChange={handleChange} />
+          </div>
+          <div className={styles.inputGroup}>
+            <label htmlFor="phone">Phone Number</label>
+            <input id="phone" name="phone" type="tel" value={formData?.phone} onChange={handleChange} />
           </div>
 
           <button type="submit" disabled={isLoading} className={styles.button}>

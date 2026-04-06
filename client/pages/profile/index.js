@@ -5,6 +5,11 @@ import styles from "./index.module.css";
 export default function Profile() {
   const { currentUser } = useAuth();
 
+  const fullName =
+    currentUser?.firstname && currentUser?.lastname
+      ? `${currentUser.firstname} ${currentUser.lastname}`
+      : currentUser?.firstname || "Unknown Staff";
+
   return (
     <div className={styles.container}>
       <Head>
@@ -31,7 +36,7 @@ export default function Profile() {
         </div>
         {/* header */}
         <div className={styles.headerText}>
-          <h1 className={styles.name}>{currentUser.username}</h1>
+          <h1 className={styles.name}>{fullName}</h1>
           <span className={styles.roleBadge}>{currentUser.role}</span>
         </div>
         <div className={styles.divider}></div>
@@ -42,8 +47,12 @@ export default function Profile() {
           </div>
 
           <div className={styles.infoItem}>
-            <span className={styles.label}>Email Address</span>
+            <span className={styles.label}>Email</span>
             <span className={styles.value}>{currentUser.email || "N/A"}</span>
+          </div>
+          <div className={styles.infoItem}>
+            <span className={styles.label}>Phone Number</span>
+            <span className={styles.value}>{currentUser.phoneNumber || "N/A"}</span>
           </div>
         </div>
       </div>
