@@ -4,6 +4,7 @@ const cors = require("cors");
 require("dotenv").config();
 const passport = require("passport");
 require("./config/passport")(passport);
+const cookieParser = require("cookie-parser");
 
 const authRoute = require("./routes").auth;
 const patientRoute = require("./routes").patients;
@@ -15,11 +16,13 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // middleware
+app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 const corsOptions = {
   origin: process.env.CLIENT_URL || "http://localhost:3000",
+  credentials: true,
   optionsSuccessStatus: 200,
 };
 app.use(cors(corsOptions));

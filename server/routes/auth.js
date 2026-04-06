@@ -73,19 +73,30 @@ router.post("/login", async (req, res) => {
   // after password is validated, generate a token and send to client
 
   // create and assign a token
-  const tokenObject = {
+  const payload = {
     _id: foundUser._id,
     username: foundUser.username,
     role: foundUser.role,
   };
 
   // sign the token
-  const token = jwt.sign(tokenObject, process.env.JWT_SECRET, { expiresIn: "1d" });
+  const accessToken = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "15m" });
+  const refreshToken = jwt.sign({ _id: foundUser._id }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: "7d" });
+
+  foundUser.refreshToken.push(refreshToken);
+  await foundUser.save({ validateBeforeSave: false });
+
+  res.cookie("jwt", refreshToken, {
+    httpOnly: true,
+    sameSite: "Strict", // Prevents CSRF attacks
+    secure: process.env.NODE_ENV === "production",
+    maxAge: 7 * 24 * 60 * 60 * 1000, // 7d
+  });
 
   try {
     return res.status(200).send({
       message: "Login successful",
-      token: "Bearer " + token,
+      token: "Bearer " + accessToken,
       user: {
         _id: foundUser._id,
         username: foundUser.username,
@@ -100,6 +111,50 @@ router.post("/login", async (req, res) => {
   } catch (err) {
     return res.status(500).send("Error logging in: " + err.message);
   }
+});
+
+router.get("/refresh", async (req, res) => {
+  const cookies = req.cookies;
+  if (!cookies?.jwt) return res.sendStatus(401);
+
+  const refreshToken = cookies.jwt;
+
+  const foundUser = await User.findOne({ refreshToken }).exec();
+  if (!foundUser) return res.sendStatus(403); // Forbidden
+
+  jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, decoded) => {
+    if (err || foundUser._id.toString() !== decoded._id) return res.sendStatus(403);
+
+    const payload = {
+      _id: foundUser._id,
+      username: foundUser.username,
+      role: foundUser.role,
+    };
+    const accessToken = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "15m" });
+
+    res.json({ token: "Bearer " + accessToken });
+  });
+});
+
+router.post("/logout", async (req, res) => {
+  const cookies = req.cookies;
+  if (!cookies?.jwt) return res.sendStatus(204); // No content
+
+  const refreshToken = cookies.jwt;
+  const foundUser = await User.findOne({ refreshToken }).exec();
+
+  if (foundUser) {
+    foundUser.refreshToken = foundUser.refreshToken.filter((rt) => rt !== refreshToken);
+    await foundUser.save();
+  }
+
+  res.clearCookie("jwt", {
+    httpOnly: true,
+    sameSite: "Strict",
+    secure: process.env.NODE_ENV === "production",
+  });
+
+  res.sendStatus(204);
 });
 
 module.exports = router;

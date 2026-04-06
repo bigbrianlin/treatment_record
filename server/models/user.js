@@ -17,7 +17,7 @@ const userSchema = new Schema(
       type: String,
       required: [true, "Password is required"],
       minlength: [6, "Password must be at least 6 characters long"],
-      maxlength: [50, "Password cannot exceed 50 characters"],
+      maxlength: [255, "Password cannot exceed 50 characters"],
     },
     role: {
       type: String,
@@ -41,6 +41,11 @@ const userSchema = new Schema(
     isActive: { type: Boolean, default: true },
     mustChangePassword: { type: Boolean, default: true },
     lastLoginAt: { type: Date },
+
+    refreshToken: {
+      type: [String],
+      default: [],
+    },
   },
   { timestamps: true }
 );
