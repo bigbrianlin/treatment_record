@@ -1,50 +1,40 @@
-import axios from "axios";
-import AuthService from "./auth.service";
-// get the API URL from environment variables
-const API_URL = process.env.NEXT_PUBLIC_API_URL + "/api/soapNotes";
+import api from "./api";
 
-const getAuthHeader = () => {
-  const token = AuthService.getToken();
-  if (token) {
-    return { headers: { Authorization: token } };
-  }
-  return {};
-};
+const API_URL = "/api/soapNotes";
 
 class SoapNoteService {
   // Get my SOAP notes
   getMySoapNotes() {
-    return axios.get(API_URL, getAuthHeader());
+    return api.get(API_URL);
   }
 
   // Get a specific SOAP note by its ID
   getSoapNoteById(noteId) {
-    return axios.get(API_URL + `/${noteId}`, getAuthHeader());
+    return api.get(API_URL + `/${noteId}`);
   }
 
   // Get all SOAP notes (leader only)
   getAllSoapNotes() {
-    return axios.get(API_URL, getAuthHeader());
+    return api.get(API_URL);
   }
 
   // Search SOAP notes by patient MRN or name
   searchSoapNotes(query) {
-    return axios.get(API_URL + "/search", {
+    return api.get(API_URL + "/search", {
       params: { q: query },
-      ...getAuthHeader(),
     });
   }
 
   createSoapNote(data) {
-    return axios.post(API_URL, data, getAuthHeader());
+    return api.post(API_URL, data);
   }
 
   updateSoapNote(noteId, data) {
-    return axios.patch(API_URL + `/${noteId}`, data, getAuthHeader());
+    return api.patch(API_URL + `/${noteId}`, data);
   }
 
   deleteSoapNote(noteId) {
-    return axios.delete(API_URL + `/${noteId}`, getAuthHeader());
+    return api.delete(API_URL + `/${noteId}`);
   }
 }
 

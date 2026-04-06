@@ -11,10 +11,7 @@ class AuthService {
    */
   async login(username, password) {
     try {
-      const response = await axios.post(API_URL + "/login", {
-        username,
-        password,
-      });
+      const response = await axios.post(API_URL + "/login", { username, password }, { withCredentials: true });
       if (response.data.token && response.data.user) {
         const authData = {
           token: response.data.token,
@@ -71,6 +68,29 @@ class AuthService {
       return auth ? JSON.parse(auth).token : null;
     }
     return null;
+  }
+
+  updateToken(newToken) {
+    if (typeof window !== "undefined") {
+      const authStr = localStorage.getItem("auth");
+      if (authStr) {
+        const authData = JSON.parse(authStr);
+        authData.token = newToken;
+        localStorage.setItem("auth", JSON.stringify(authData));
+      }
+    }
+  }
+
+  async logout() {
+    try {
+      await axios.post(API_URL + "/logout", {}, { withCredentials: true });
+    } catch (err) {
+      console.error("Logout API failed, but will still clear local storage", err);
+    } finally {
+      if (typeof window !== "undefined") {
+        localStorage.removeItem("auth");
+      }
+    }
   }
 }
 

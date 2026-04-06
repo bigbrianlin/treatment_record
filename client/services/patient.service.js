@@ -1,37 +1,28 @@
-import axios from "axios";
-import AuthService from "./auth.service";
-// get the API URL from environment variables
-const API_URL = process.env.NEXT_PUBLIC_API_URL + "/api/patients";
+import api from "./api";
 
-const getAuthHeader = () => {
-  const token = AuthService.getToken();
-  if (token) {
-    return { headers: { Authorization: token } };
-  }
-  return {};
-};
+const API_URL = "/api/patients";
 
 class PatientService {
   // Get all patients
   getAllPatients() {
-    return axios.get(API_URL, getAuthHeader());
+    return api.get(API_URL);
   }
 
   // Get a specific patient by ID
   getPatientById(patientId) {
-    return axios.get(API_URL + `/${patientId}`, getAuthHeader());
+    return api.get(API_URL + `/${patientId}`);
   }
 
   createPatient(patientData) {
-    return axios.post(API_URL, patientData, getAuthHeader());
+    return api.post(API_URL, patientData);
   }
 
   updatePatient(patientId, updatedData) {
-    return axios.patch(API_URL + `/${patientId}`, updatedData, getAuthHeader());
+    return api.patch(API_URL + `/${patientId}`, updatedData);
   }
 
   deletePatient(patientId) {
-    return axios.delete(API_URL + `/${patientId}`, getAuthHeader());
+    return api.delete(API_URL + `/${patientId}`);
   }
 }
 

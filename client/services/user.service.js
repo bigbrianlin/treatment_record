@@ -1,26 +1,21 @@
-import axios from "axios";
-import AuthService from "./auth.service";
+import api from "./api";
 
-// get the API URL from environment variables
-const API_URL = process.env.NEXT_PUBLIC_API_URL + "/api/users";
-
-const getAuthHeader = () => {
-  const token = AuthService.getToken();
-  if (token) {
-    return { headers: { Authorization: token } };
-  }
-  return {};
-};
+const API_URL = "/api/users";
 
 class UserService {
   async changePassword(oldPassword, newPassword) {
-    const response = await axios.put(API_URL + "/change-password", { oldPassword, newPassword }, getAuthHeader());
+    const response = await api.put(API_URL + "/change-password", {
+      oldPassword,
+      newPassword,
+    });
 
     if (response.data) {
+      // Retrieve data using the "auth" key
       const authStr = localStorage.getItem("auth");
 
       if (authStr) {
         let authData = JSON.parse(authStr);
+        // Update the password change status
         authData.user.mustChangePassword = false;
         localStorage.setItem("auth", JSON.stringify(authData));
       }

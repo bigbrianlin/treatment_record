@@ -1,20 +1,11 @@
-import axios from "axios";
-import AuthService from "./auth.service";
+import api from "./api";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL + "/api/admin";
-
-const getAuthHeader = () => {
-  const token = AuthService.getToken();
-  if (token) {
-    return { headers: { Authorization: token } };
-  }
-  return {};
-};
+const API_URL = "/api/admin";
 
 class AdminService {
   async getAllUsers() {
     try {
-      const response = await axios.get(API_URL + "/users", getAuthHeader());
+      const response = await api.get(API_URL + "/users");
       return response.data;
     } catch (error) {
       console.error("Error fetching users:", error);
@@ -24,7 +15,7 @@ class AdminService {
 
   async getUserById(userId) {
     try {
-      const response = await axios.get(API_URL + `/users/${userId}`, getAuthHeader());
+      const response = await api.get(API_URL + `/users/${userId}`);
       return response.data;
     } catch (error) {
       console.error("Error fetching user:", error);
@@ -34,7 +25,7 @@ class AdminService {
 
   async createUser(userData) {
     try {
-      const response = await axios.post(API_URL + "/users", userData, getAuthHeader());
+      const response = await api.post(API_URL + "/users", userData);
       return response.data;
     } catch (error) {
       console.error("Error creating user:", error);
