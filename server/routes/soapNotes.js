@@ -21,7 +21,7 @@ router.get("/", async (req, res) => {
     let soapNotesFound = await SoapNote.find({ therapist: req.user._id })
       .sort({ createdAt: -1 })
       .populate("patient")
-      .populate("therapist", "username")
+      .populate("therapist")
       .exec();
     return res.send(soapNotesFound);
   } catch (err) {
@@ -31,7 +31,7 @@ router.get("/", async (req, res) => {
 
 // Get all SOAP notes (leader only)
 router.get("/all", async (req, res) => {
-  if (req.user.role !== "leader") return res.status(403).send("Access denied, leader only");
+  if (req.user.role !== "admin") return res.status(403).send("Access denied, leader only");
   try {
     let soapNotesFound = await SoapNote.find()
       .sort({ createdAt: -1 })
@@ -83,7 +83,7 @@ router.get("/search", async (req, res) => {
 router.get("/:_id", async (req, res) => {
   let { _id } = req.params;
   try {
-    let soapNoteFound = await SoapNote.findById(_id).populate("patient").populate("therapist", "username").exec();
+    let soapNoteFound = await SoapNote.findById(_id).populate("patient").populate("therapist").exec();
 
     if (!soapNoteFound) return res.status(404).send("SOAP Note not found");
     return res.send(soapNoteFound);

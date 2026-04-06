@@ -5,7 +5,6 @@ import Link from "next/link";
 import { useAuth } from "@/context/authContext";
 import SoapNoteService from "@/services/soapNote.service";
 import Spinner from "@/components/ui/Spinner/Spinner";
-import Button from "@/components/ui/Button/Button";
 import styles from "./[id].module.css";
 import PageState from "@/components/ui/PageState/PageState";
 
@@ -58,6 +57,10 @@ export default function SoapNoteDetail() {
     patient?.firstname && patient?.lastname
       ? `${patient?.firstname} ${patient?.lastname}`
       : patient?.firstname || "Unknown Patient";
+
+  const user = note?.therapist;
+  const userFullName =
+    user?.firstname && user?.lastname ? `${user.firstname} ${user.lastname}` : user?.firstname || "Unknown Staff";
 
   return (
     <PageState isLoading={isLoading} error={error} data={note} noDataMsg="No SOAP note found.">
@@ -123,13 +126,13 @@ export default function SoapNoteDetail() {
             <strong>Treatment Date:</strong> {new Date(note?.treatmentDate).toLocaleDateString()}
           </p>
           <p>
-            <strong>Session Count:</strong> Session #{note?.sessionCount}
+            <strong>Session Count:</strong> {note?.sessionCount}
           </p>
           <p>
             <strong>Diagnosis:</strong> {note?.disabilityCategory}
           </p>
           <p>
-            <strong>SLP:</strong> {note?.therapist.username}
+            <strong>SLP:</strong> {userFullName}
           </p>
         </div>
 
