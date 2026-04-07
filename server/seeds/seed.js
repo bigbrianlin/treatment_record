@@ -1,6 +1,6 @@
 require("dotenv").config();
 const mongoose = require("mongoose");
-const { User } = require("./models");
+const { User } = require("../models");
 
 const MONGODB_URI = process.env.MONGODB_URI;
 const ADMIN_PASSWORD = process.env.INITIAL_ADMIN_PASSWORD;
