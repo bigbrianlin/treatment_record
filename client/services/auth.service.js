@@ -26,13 +26,6 @@ class AuthService {
   }
 
   /**
-   * logout user
-   */
-  logout() {
-    localStorage.removeItem("auth");
-  }
-
-  /**
    * register user
    * @param {string} username
    * @param {string} password
