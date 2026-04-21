@@ -1,24 +1,32 @@
+// tests/utils/testApp.js
 const express = require("express");
 const errorHandler = require("../../middlewares/errorHandler");
 
 // Import routers
 const patientRouter = require("../../routes/patients");
-// You can import soapNotesRouter later
+const soapNoteRouter = require("../../routes/soapNotes");
 
-/**
- * Creates and configures an Express application for testing.
- * @returns {Object} Configured Express app
- */
 const createTestApp = () => {
   const app = express();
 
-  // Middleware
   app.use(express.json());
+
+  app.use((req, res, next) => {
+    if (req.headers["x-test-user-id"]) {
+      req.user = {
+        _id: req.headers["x-test-user-id"],
+        role: "therapist",
+        username: "testtherapist",
+      };
+    }
+    next();
+  });
 
   // Mount routes
   app.use("/api/patients", patientRouter);
+  app.use("/api/soapNotes", soapNoteRouter);
 
-  // Global error handler must be at the end
+  // Global error handler
   app.use(errorHandler);
 
   return app;

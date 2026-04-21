@@ -34,7 +34,7 @@ const soapNoteValidation = (data) => {
   return schema.validate(data);
 };
 
-const upadateSoapNoteValidation = (data) => {
+const updateSoapNoteValidation = (data) => {
   const schema = Joi.object({
     patient: Joi.string().hex().length(24),
     disabilityCategory: Joi.string().max(100),
@@ -107,6 +107,6 @@ const updatePatientValidation = (data) => {
 module.exports.registerValidation = registerValidation;
 module.exports.loginValidation = loginValidation;
 module.exports.soapNoteValidation = soapNoteValidation;
-module.exports.upadateSoapNoteValidation = upadateSoapNoteValidation;
+module.exports.updateSoapNoteValidation = updateSoapNoteValidation;
 module.exports.patientValidation = patientValidation;
 module.exports.updatePatientValidation = updatePatientValidation;
