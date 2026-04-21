@@ -3,6 +3,10 @@ import styles from "./SelectPatientCard.module.css";
 
 export default function SelectPatientCard({ patient }) {
   const formattedDate = new Date(patient.birthDate).toLocaleDateString();
+  const fullName =
+    patient.firstname && patient.lastname
+      ? `${patient.firstname} ${patient.lastname}`
+      : patient.firstname || "Unknown Patient";
 
   return (
     <Link href={`/soapNotes/new/${patient._id}`} className={styles.patientCard}>
@@ -10,7 +14,7 @@ export default function SelectPatientCard({ patient }) {
       <div className={styles.contentContainer}>
         {/* Patient Info Area */}
         <div className={styles.infoWrapper}>
-          <h3 className={styles.name}>{patient.name || "Unknown Patient"}</h3>
+          <h3 className={styles.name}>{fullName}</h3>
           <div className={styles.details}>
             <span>{patient.medicalRecordNumber}</span>
             <sapn>DOB: {formattedDate}</sapn>

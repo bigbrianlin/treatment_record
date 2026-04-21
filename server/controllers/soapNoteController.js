@@ -9,7 +9,7 @@ const catchAsync = require("../utils/catchAsync");
 const getAllSoapNotes = catchAsync(async (req, res, next) => {
   const notes = await SoapNote.find()
     .populate("patient", "firstname lastname medicalRecordNumber")
-    .populate("therapist", "username")
+    .populate("therapist", "username firstname lastname")
     .sort({ createdAt: -1 });
 
   res.status(200).json(notes);
@@ -21,7 +21,7 @@ const getAllSoapNotes = catchAsync(async (req, res, next) => {
  */
 const getSoapNoteById = catchAsync(async (req, res, next) => {
   const { _id } = req.params;
-  const note = await SoapNote.findById(_id).populate("patient").populate("therapist", "username");
+  const note = await SoapNote.findById(_id).populate("patient").populate("therapist", "firstname lastname username");
 
   if (!note) {
     const error = new Error("SOAP note not found");
@@ -38,7 +38,9 @@ const getSoapNoteById = catchAsync(async (req, res, next) => {
  */
 const getNotesByPatientId = catchAsync(async (req, res, next) => {
   const { patientId } = req.params;
-  const notes = await SoapNote.find({ patient: patientId }).populate("therapist", "username").sort({ date: -1 });
+  const notes = await SoapNote.find({ patient: patientId })
+    .populate("therapist", "username firstname lastname")
+    .sort({ date: -1 });
 
   res.status(200).json(notes);
 });
